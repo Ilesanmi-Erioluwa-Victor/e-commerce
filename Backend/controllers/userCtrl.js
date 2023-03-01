@@ -85,7 +85,26 @@ exports.deleteUserCtrl = asyncHandler(async (req, res) => {
     const user = await User.findByIdAndDelete(id);
     res.status(httpStatus.NO_CONTENT).json({
       status: "success",
-      data : null
+      data: null,
+    });
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
+// Update User
+exports.updateUserCtrl = asyncHandler(async (req, res) => {
+  try {
+    const { id } = req?.params;
+
+    const user = await User.findByIdAndUpdate(
+      id,
+      {},
+      { new: true, runValidators: true }
+    );
+    res.status(httpStatus.NO_CONTENT).json({
+      status: "success",
+      data: null,
     });
   } catch (error) {
     throw new Error(error);
