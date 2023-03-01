@@ -30,8 +30,11 @@ exports.loginUserCtrl = asyncHandler(async (req, res) => {
     // Check for user
     const user = await User.findOne({ email });
     if (user && (await user.isPasswordMatched(password))) {
+      res.json(user);
     } else {
       throw new Error("Invalid credentials, please try again...");
     }
-  } catch (error) {}
+  } catch (error) {
+    return error;
+  }
 });
