@@ -18,5 +18,10 @@ exports.createUser = async (req, res) => {
       user,
     });
   } else {
+    //   User already exists
+         res.status(httpStatus.CONFLICT).json({
+           status: "fail",
+           message : "User already exists, log in to your account."
+         });
   }
 };
