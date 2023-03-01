@@ -7,7 +7,10 @@ exports.createUser = async (req, res) => {
     if (!findUser) {
         // Create a new user
         const user = await User.create({
-            fir
+            firstName: req?.body?.firstName,
+            lastName: req?.body?.lastName,
+            email: req?.body?.email,
+            password : req?.body?.password
         })
     } else {
         
