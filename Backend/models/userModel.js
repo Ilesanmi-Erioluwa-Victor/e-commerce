@@ -1,24 +1,26 @@
-const mongoose = require('mongoose'); // Erase if already required
+const mongoose = require("mongoose"); // Erase if already required
 
 // Declare the Schema of the Mongo model
 const userSchema = new mongoose.Schema({
   firstName: {
+    required: [true, "First name is required"],
     type: String,
-    required: true,
   },
+
   lastName: {
+    required: [true, "Last name is required"],
     type: String,
-    required: true,
-    },
-  
+  },
+
   email: {
     type: String,
-    required: true,
+    required: [true, "Email is required"],
     unique: true,
   },
+
   password: {
     type: String,
-    required: true,
+    required: [true, "Password is required"],
   },
 });
 
