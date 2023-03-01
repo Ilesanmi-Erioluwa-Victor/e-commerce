@@ -1,10 +1,11 @@
 const User = require("../models/userModel");
 const httpStatus = require("http-status");
+const asyncHandler = require("express-async-handler");
 
-exports.createUser = async (req, res) => {
+exports.createUser = asyncHandler(async (req, res) => {
   const email = req?.body?.email;
 
-  const findUser = await User.findOne({email});
+  const findUser = await User.findOne({ email });
   if (!findUser) {
     // Create a new user
     const user = await User.create({
@@ -19,9 +20,6 @@ exports.createUser = async (req, res) => {
     });
   } else {
     //   User already exists
-         res.status(httpStatus.CONFLICT).json({
-           status: "fail",
-           message : "User already exists, log in to your account."
-         });
+    throw new Error("User already exists, login to your account");
   }
-};
+});
