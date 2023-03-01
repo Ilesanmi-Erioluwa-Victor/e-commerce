@@ -55,6 +55,16 @@ exports.getUserCtrl = asyncHandler(async (req, res) => {
   const user = await User.findById(id);
   res.status(httpStatus.OK).json({
     status: "success",
-    user
+    user,
+  });
+});
+
+// Get All Users
+exports.getAllUsersCtrl = asyncHandler(async (req, res) => {
+  const user = await User.find();
+  res.status(httpStatus.OK).json({
+    status: "success",
+    results: user?.length,
+    user,
   });
 });

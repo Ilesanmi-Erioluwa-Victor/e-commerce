@@ -2,32 +2,37 @@ const mongoose = require("mongoose"); // Erase if already required
 const bcrypt = require("bcrypt");
 
 // Declare the Schema of the Mongo model
-const userSchema = new mongoose.Schema({
-  firstName: {
-    required: [true, "First name is required"],
-    type: String,
-  },
+const userSchema = new mongoose.Schema(
+  {
+    firstName: {
+      required: [true, "First name is required"],
+      type: String,
+    },
 
-  lastName: {
-    required: [true, "Last name is required"],
-    type: String,
-  },
+    lastName: {
+      required: [true, "Last name is required"],
+      type: String,
+    },
 
-  email: {
-    type: String,
-    required: [true, "Email is required"],
-    unique: true,
-  },
+    email: {
+      type: String,
+      required: [true, "Email is required"],
+      unique: true,
+    },
 
-  password: {
-    type: String,
-    required: [true, "Password is required"],
+    password: {
+      type: String,
+      required: [true, "Password is required"],
+    },
+    role: {
+      type: String,
+      default: "user",
+    },
   },
-  role: {
-    type: String,
-    default: "user",
-  },
-});
+  {
+    timestamps: true,
+  }
+);
 
 // encrypting of password...( Hashing...)
 userSchema.pre("save", async function (next) {
