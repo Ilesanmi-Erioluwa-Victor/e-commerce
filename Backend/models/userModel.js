@@ -25,8 +25,11 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-// encrypting of password...
+// encrypting of password...( Hashing...)
 userSchema.pre("save", async function (next) {
+  //   Hash Password
+  const salt = await bcrypt.genSaltSync(10);
+  this.password = await bcrypt.hash(this.password, salt);
   next();
 });
 //Export the model
