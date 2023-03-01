@@ -2,10 +2,11 @@ const express = require("express");
 const app = express();
 const dotenv = require("dotenv").config();
 const authRoute = require("./routes/authRoute");
-const { db } = require("./models/userModel");
+const dbConnect = require("./config/dbConnect");
 
-db()
 const PORT = process.env.PORT || 3000;
+
+dbConnect();
 
 app.use("/api/v1/users", authRoute);
 

@@ -4,7 +4,7 @@ const httpStatus = require("http-status");
 exports.createUser = async (req, res) => {
   const email = req?.body?.email;
 
-  const findUser = await User.findOne(email);
+  const findUser = await User.find({ email });
   if (!findUser) {
     // Create a new user
     const user = await User.create({
@@ -19,9 +19,9 @@ exports.createUser = async (req, res) => {
     });
   } else {
     //   User already exists
-         res.status(httpStatus.CONFLICT).json({
-           status: "fail",
-           message : "User already exists, log in to your account."
-         });
+    res.status(httpStatus.CONFLICT).json({
+      status: "fail",
+      message: "User already exists, log in to your account.",
+    });
   }
 };
