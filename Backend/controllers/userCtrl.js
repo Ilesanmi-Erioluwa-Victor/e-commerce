@@ -76,3 +76,18 @@ exports.getAllUsersCtrl = asyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
+
+// Delete User
+exports.deleteUserCtrl = asyncHandler(async (req, res) => {
+  try {
+    const { id } = req?.params;
+
+    const user = await User.findByIdAndDelete(id);
+    res.status(httpStatus.NO_CONTENT).json({
+      status: "success",
+      data : null
+    });
+  } catch (error) {
+    throw new Error(error);
+  }
+});
