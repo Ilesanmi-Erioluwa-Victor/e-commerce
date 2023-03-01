@@ -1,4 +1,5 @@
 const mongoose = require("mongoose"); // Erase if already required
+const bcrypt = require("bcrypt");
 
 // Declare the Schema of the Mongo model
 const userSchema = new mongoose.Schema({
@@ -26,7 +27,6 @@ const userSchema = new mongoose.Schema({
 
 // encrypting of password...
 userSchema.pre("save", async function (next) {
-  
   next();
 });
 //Export the model
