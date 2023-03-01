@@ -50,21 +50,29 @@ exports.loginUserCtrl = asyncHandler(async (req, res) => {
 
 // Get User
 exports.getUserCtrl = asyncHandler(async (req, res) => {
-  const { id } = req?.params;
+  try {
+    const { id } = req?.params;
 
-  const user = await User.findById(id);
-  res.status(httpStatus.OK).json({
-    status: "success",
-    user,
-  });
+    const user = await User.findById(id);
+    res.status(httpStatus.OK).json({
+      status: "success",
+      user,
+    });
+  } catch (error) {
+    throw new Error(error);
+  }
 });
 
 // Get All Users
 exports.getAllUsersCtrl = asyncHandler(async (req, res) => {
-  const user = await User.find();
-  res.status(httpStatus.OK).json({
-    status: "success",
-    results: user?.length,
-    user,
-  });
+  try {
+    const user = await User.find();
+    res.status(httpStatus.OK).json({
+      status: "success",
+      results: user?.length,
+      user,
+    });
+  } catch (error) {
+    throw new Error(error);
+  }
 });
