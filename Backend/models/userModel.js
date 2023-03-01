@@ -24,6 +24,11 @@ const userSchema = new mongoose.Schema({
   },
 });
 
+// encrypting of password...
+userSchema.pre("save", async function (next) {
+  
+  next();
+});
 //Export the model
 const User = mongoose.model("User", userSchema);
 module.exports = User;
