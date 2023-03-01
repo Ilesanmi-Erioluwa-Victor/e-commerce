@@ -27,6 +27,11 @@ exports.createUserCtrl = asyncHandler(async (req, res) => {
 exports.loginUserCtrl = asyncHandler(async (req, res) => {
   try {
     const { email, password } = req?.body;
-    console.log(email, password)
+    // Check for user
+    const user = await User.findOne({ email });
+    if (user && (await user.isPasswordMatched(password))) {
+    } else {
+      throw new Error("Invalid credentials, please try again...");
+    }
   } catch (error) {}
 });
