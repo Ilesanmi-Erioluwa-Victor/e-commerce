@@ -24,7 +24,9 @@ exports.createUserCtrl = asyncHandler(async (req, res) => {
   }
 });
 
-
 exports.loginUserCtrl = asyncHandler(async (req, res) => {
-  
-})
+  try {
+    const { email, password } = req?.body;
+    console.log(email, password)
+  } catch (error) {}
+});
