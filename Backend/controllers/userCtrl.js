@@ -3,6 +3,7 @@ const httpStatus = require("http-status");
 const asyncHandler = require("express-async-handler");
 const generateToken = require("../config/jsonToken");
 
+// Create User
 exports.createUserCtrl = asyncHandler(async (req, res) => {
   const email = req?.body?.email;
 
@@ -25,6 +26,7 @@ exports.createUserCtrl = asyncHandler(async (req, res) => {
   }
 });
 
+// Login user
 exports.loginUserCtrl = asyncHandler(async (req, res) => {
   const { email, password } = req?.body;
   // Check for user
@@ -44,4 +46,15 @@ exports.loginUserCtrl = asyncHandler(async (req, res) => {
   } else {
     throw new Error("Invalid credentials, please try again...");
   }
+});
+
+// Get User
+exports.getUserCtrl = asyncHandler(async (req, res) => {
+  const { id } = req?.params;
+
+  const user = await User.findById(id);
+  res.status(httpStatus.OK).json({
+    status: "success",
+    user
+  });
 });
