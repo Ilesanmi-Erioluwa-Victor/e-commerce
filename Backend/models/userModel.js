@@ -28,6 +28,15 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "user",
     },
+
+    cart : {
+      type : Array,
+      default : []
+    },
+    address: [{
+      type: ObjectId,
+      ref : "Address"
+    }]
   },
   {
     timestamps: true,
