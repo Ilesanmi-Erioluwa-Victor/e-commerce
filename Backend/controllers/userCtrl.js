@@ -115,15 +115,23 @@ exports.updateUserCtrl = asyncHandler(async (req, res) => {
   }
 });
 
-
 // DBlock User
 exports.blockUserCtrl = asyncHandler(async (req, res) => {
   try {
+    const { id } = req?.params;
 
-    const user = await User.findByIdAndDelete(id);
-    res.status(httpStatus.NO_CONTENT).json({
+    const user = await User.findByIdAndUpdate(
+      id,
+      {
+        isBlocked: true,
+      },
+      {
+        new: true,
+      }
+    );
+    res.status(httpStatus.OK).json({
       status: "success",
-      data: null,
+      message: "User blocked",
     });
   } catch (error) {
     throw new Error(error);
@@ -133,11 +141,20 @@ exports.blockUserCtrl = asyncHandler(async (req, res) => {
 // unBlock User
 exports.unBlockUserCtrl = asyncHandler(async (req, res) => {
   try {
+    const { id } = req?.params;
 
-    const user = await User.findByIdAndDelete(id);
-    res.status(httpStatus.NO_CONTENT).json({
+    const user = await User.findByIdAndUpdate(
+      id,
+      {
+        isBlocked: false,
+      },
+      {
+        new: true,
+      }
+    );
+    res.status(httpStatus.OK).json({
       status: "success",
-      data: null,
+      message: "User unblocked",
     });
   } catch (error) {
     throw new Error(error);
