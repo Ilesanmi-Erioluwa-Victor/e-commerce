@@ -1,6 +1,7 @@
 const User = require("../models/userModel");
 const httpStatus = require("http-status");
 const asyncHandler = require("express-async-handler");
+const jwt = require("jsonwebtoken");
 const generateToken = require("../config/jsonToken");
 const ValidateMongoId = require("../utils/validateMongoId");
 const generateRefreshToken = require("../config/refreshToken");
@@ -71,6 +72,9 @@ exports.RefreshTokenHandler = asyncHandler(async (req, res) => {
   const refreshToken = cookie?.refreshToken;
 
   const user = await User.findOne({ refreshToken });
+  if (!user) throw new Error("No refreshToken found in DB or not matched, try again...");
+
+ jwt.verify()
    res.status(httpStatus.OK).json({
      status: "success",
      user,
