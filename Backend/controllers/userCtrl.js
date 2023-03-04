@@ -66,8 +66,9 @@ exports.loginUserCtrl = asyncHandler(async (req, res) => {
 
 // Handle Refresh Handler.
 exports.RefreshTokenHandler = asyncHandler(async (req, res) => {
-  
-})
+  const cookie = req.cookies;
+  console.log(cookie);
+});
 
 // Get User
 exports.getUserCtrl = asyncHandler(async (req, res) => {
