@@ -16,12 +16,13 @@ const router = express.Router();
 
 router.post("/register", createUserCtrl);
 router.post("/login", loginUserCtrl);
+router.get("/refresh", RefreshTokenHandler);
 router.get("/:id", authMiddleware, isAdmin, getUserCtrl);
 router.get("/", getAllUsersCtrl);
 router.delete("/:id", deleteUserCtrl);
 router.put("/edit-user", authMiddleware, updateUserCtrl);
 router.put("/block-user/:id", authMiddleware, isAdmin, blockUserCtrl);
 router.put("/unblock-user/:id", authMiddleware, isAdmin, unBlockUserCtrl);
-router.put("/refresh", RefreshTokenHandler);
+
 
 module.exports = router;
