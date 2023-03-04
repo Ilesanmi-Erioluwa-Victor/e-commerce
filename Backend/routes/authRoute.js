@@ -4,7 +4,8 @@ const {
   loginUserCtrl,
   getUserCtrl,
   getAllUsersCtrl,
-  deleteUserCtrl
+  deleteUserCtrl,
+  updateUserCtrl
 } = require("../controllers/userCtrl");
 const router = express.Router();
 
@@ -13,5 +14,6 @@ router.post("/login", loginUserCtrl);
 router.get("/:id", getUserCtrl);
 router.get("/", getAllUsersCtrl);
 router.delete("/:id", deleteUserCtrl);
+router.put("/:id", updateUserCtrl);
 
 module.exports = router;

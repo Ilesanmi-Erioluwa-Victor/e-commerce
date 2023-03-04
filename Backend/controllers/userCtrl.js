@@ -100,9 +100,9 @@ exports.updateUserCtrl = asyncHandler(async (req, res) => {
     const user = await User.findByIdAndUpdate(
       id,
       {
-        firstName: user?.firstName,
-        lastName: user?.lastName,
-        email: user?.email,
+        firstName: user?.body?.firstName,
+        lastName: user?.body?.lastName,
+        email: user?.body?.email,
       },
       { new: true, runValidators: true }
     );
