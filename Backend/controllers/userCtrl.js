@@ -67,7 +67,9 @@ exports.loginUserCtrl = asyncHandler(async (req, res) => {
 // Handle Refresh Handler.
 exports.RefreshTokenHandler = asyncHandler(async (req, res) => {
   const cookie = req.cookies;
-  console.log(cookie);
+  if (!cookie?.refreshToken) throw new Error("No refresh token in cookies");
+  const refreshToken = cookie?.refreshToken;
+  console.log(refreshToken)
 });
 
 // Get User
