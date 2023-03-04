@@ -69,7 +69,12 @@ exports.RefreshTokenHandler = asyncHandler(async (req, res) => {
   const cookie = req.cookies;
   if (!cookie?.refreshToken) throw new Error("No refresh token in cookies");
   const refreshToken = cookie?.refreshToken;
-  console.log(refreshToken)
+
+  const user = await User.findOne({ refreshToken });
+   res.status(httpStatus.OK).json({
+     status: "success",
+     user,
+   });
 });
 
 // Get User
