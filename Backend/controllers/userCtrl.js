@@ -99,12 +99,16 @@ exports.updateUserCtrl = asyncHandler(async (req, res) => {
 
     const user = await User.findByIdAndUpdate(
       id,
-      {},
+      {
+        firstName: user?.firstName,
+        lastName: user?.lastName,
+        email: user?.email,
+      },
       { new: true, runValidators: true }
     );
-    res.status(httpStatus.NO_CONTENT).json({
+    res.status(httpStatus.OK).json({
       status: "success",
-      data: null,
+      data: user,
     });
   } catch (error) {
     throw new Error(error);
