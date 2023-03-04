@@ -2,6 +2,7 @@ const User = require("../models/userModel");
 const httpStatus = require("http-status");
 const asyncHandler = require("express-async-handler");
 const generateToken = require("../config/jsonToken");
+const ValidateMongoId = require("../utils/validateMongoId");
 
 // Create User
 exports.createUserCtrl = asyncHandler(async (req, res) => {
@@ -50,9 +51,10 @@ exports.loginUserCtrl = asyncHandler(async (req, res) => {
 
 // Get User
 exports.getUserCtrl = asyncHandler(async (req, res) => {
-  try {
-    const { id } = req?.params;
+  const { id } = req?.params;
 
+  ValidateMongoId(id);
+  try {
     const user = await User.findById(id);
     res.status(httpStatus.OK).json({
       status: "success",
@@ -79,9 +81,9 @@ exports.getAllUsersCtrl = asyncHandler(async (req, res) => {
 
 // Delete User
 exports.deleteUserCtrl = asyncHandler(async (req, res) => {
+  const { id } = req?.params;
+  ValidateMongoId(id);
   try {
-    const { id } = req?.params;
-
     const user = await User.findByIdAndDelete(id);
     res.status(httpStatus.NO_CONTENT).json({
       status: "success",
@@ -94,9 +96,10 @@ exports.deleteUserCtrl = asyncHandler(async (req, res) => {
 
 // Update User
 exports.updateUserCtrl = asyncHandler(async (req, res) => {
-  try {
-    const { _id } = req?.user;
+  const { _id } = req?.user;
+  ValidateMongoId(_id);
 
+  try {
     const user = await User.findByIdAndUpdate(
       _id,
       {
@@ -117,9 +120,9 @@ exports.updateUserCtrl = asyncHandler(async (req, res) => {
 
 // DBlock User
 exports.blockUserCtrl = asyncHandler(async (req, res) => {
+  const { id } = req?.params;
+  ValidateMongoId(id);
   try {
-    const { id } = req?.params;
-
     const user = await User.findByIdAndUpdate(
       id,
       {
@@ -140,9 +143,9 @@ exports.blockUserCtrl = asyncHandler(async (req, res) => {
 
 // unBlock User
 exports.unBlockUserCtrl = asyncHandler(async (req, res) => {
+  const { id } = req?.params;
+  ValidateMongoId(id);
   try {
-    const { id } = req?.params;
-
     const user = await User.findByIdAndUpdate(
       id,
       {
