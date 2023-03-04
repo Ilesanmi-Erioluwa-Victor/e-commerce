@@ -7,7 +7,8 @@ const {
   deleteUserCtrl,
   updateUserCtrl
 } = require("../controllers/userCtrl");
-const authMiddleware = require("../middlewares/authMiddlware");
+const { authMiddleware, isAdmin } = require("../middlewares/authMiddlware");
+
 
 
 const router = express.Router();
