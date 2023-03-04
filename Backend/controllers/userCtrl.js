@@ -96,7 +96,6 @@ exports.deleteUserCtrl = asyncHandler(async (req, res) => {
 exports.updateUserCtrl = asyncHandler(async (req, res) => {
   try {
     const { _id } = req?.user;
-    console.log(_id);
 
     const user = await User.findByIdAndUpdate(
       _id,
