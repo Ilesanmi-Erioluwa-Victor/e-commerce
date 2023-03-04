@@ -72,15 +72,21 @@ exports.RefreshTokenHandler = asyncHandler(async (req, res) => {
   const refreshToken = cookie?.refreshToken;
 
   const user = await User.findOne({ refreshToken });
-  if (!user) throw new Error("No refreshToken found in DB or not matched, try again...");
+  if (!user)
+    throw new Error("No refreshToken found in DB or not matched, try again...");
 
   jwt.verify(refreshToken, process.env.JWT_SECRET_KEY, (err, decoded) => {
-   
- });
-   res.status(httpStatus.OK).json({
-     status: "success",
-     user,
-   });
+    if (err || user?.id !== decoded?.id) {
+      throw new Error("There is something wrong with refresh token");
+    }
+
+    const accessToken = generateToken(user?._id);
+
+    res.status(httpStatus.OK).json({
+      status: "success",
+      accessToken,
+    });
+  });
 });
 
 // Get User
