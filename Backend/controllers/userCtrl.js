@@ -74,7 +74,9 @@ exports.RefreshTokenHandler = asyncHandler(async (req, res) => {
   const user = await User.findOne({ refreshToken });
   if (!user) throw new Error("No refreshToken found in DB or not matched, try again...");
 
- jwt.verify()
+  jwt.verify(refreshToken, process.env.JWT_SECRET_KEY, (err, decoded) => {
+   
+ });
    res.status(httpStatus.OK).json({
      status: "success",
      user,
