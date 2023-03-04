@@ -1,8 +1,10 @@
 const express = require("express");
 const dotenv = require("dotenv").config();
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+
 const authRoute = require("./routes/authRoute");
 const dbConnect = require("./config/dbConnect");
-const bodyParser = require("body-parser");
 const { errorHandler, notFound } = require("./middlewares/errorHandler");
 
 const app = express();
@@ -13,7 +15,7 @@ dbConnect();
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
+app.use(cookieParser());
 // Routes
 app.use("/api/v1/users", authRoute);
 
