@@ -5,7 +5,6 @@ const generateToken = require("../config/jsonToken");
 const ValidateMongoId = require("../utils/validateMongoId");
 const generateRefreshToken = require("../config/refreshToken");
 
-
 // Create User
 exports.createUserCtrl = asyncHandler(async (req, res) => {
   const email = req?.body?.email;
@@ -36,6 +35,20 @@ exports.loginUserCtrl = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email });
 
   if (user && (await user.isPasswordMatched(password))) {
+    const refreshToken = await generateRefreshToken(user?.id);
+    const updatedUser = await User.findByIdAndUpdate(
+      user?._id,
+      {
+        refreshToken: refreshToken,
+      },
+      {
+        new: true,
+      }
+    );
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      maxAge: 72 * 60 * 60 * 1000,
+    });
     res.status(httpStatus.OK).json({
       status: "success",
       user: {
