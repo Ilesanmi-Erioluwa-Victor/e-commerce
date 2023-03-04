@@ -29,14 +29,22 @@ const userSchema = new mongoose.Schema(
       default: "user",
     },
 
-    cart : {
-      type : Array,
-      default : []
+    cart: {
+      type: Array,
+      default: [],
     },
-    address: [{
-      type: ObjectId,
-      ref : "Address"
-    }]
+    address: [
+      {
+        type: ObjectId,
+        ref: "Address",
+      },
+    ],
+    wishlist: [
+      {
+        type: ObjectId,
+        ref: "Product",
+      },
+    ],
   },
   {
     timestamps: true,
