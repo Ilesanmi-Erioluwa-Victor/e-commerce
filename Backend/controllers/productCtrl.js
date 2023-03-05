@@ -3,7 +3,14 @@ const httpStatus = require("http-status");
 const asyncHandler = require("express-async-handler");
 
 exports.createProductCtrl = asyncHandler(async (req, res) => {
-  const product = await Product.create();
+  try {
+    const product = await Product.create(req?.body);
+    
+      res.json(product);
+  } catch (error) {
+    
+  }
 
-  res.send("Hello from products...");
+
+
 });
