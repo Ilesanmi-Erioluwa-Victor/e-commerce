@@ -56,6 +56,21 @@ exports.updateProductCtrl = asyncHandler(async (req, res) => {
   }
 });
 
+// Delete product
+exports.deleteProductCtrl = asyncHandler(async (req, res) => {
+  const { id } = req?.params;
+  try {
+    const product = await Product.findByIdAndDelete(id);
+
+    res.status(httpStatus.NO_CONTENT).json({
+      status: "success",
+      product: null,
+    });
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
 // Get all products
 exports.getAllProductsCtrl = asyncHandler(async (req, res) => {
   try {
