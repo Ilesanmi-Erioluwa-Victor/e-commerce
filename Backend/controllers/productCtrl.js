@@ -24,3 +24,14 @@ exports.getProductCtrl = asyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
+
+
+// Get all products
+exports.getAllProductsCtrl = asyncHandler(async (req, res) => {
+  try {
+    const product = await Product.find();
+    res.json(product);
+  } catch (error) {
+    throw new Error(error);
+  }
+});
