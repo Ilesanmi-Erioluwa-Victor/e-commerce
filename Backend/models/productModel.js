@@ -16,15 +16,14 @@ const productSchema = new mongoose.Schema(
       lowercase : true
     },
 
-    email: {
+    description: {
       type: String,
-      required: [true, "Email is required"],
-      unique: true,
+      required: true
     },
 
-    password: {
+    price: {
       type: String,
-      required: [true, "Password is required"],
+      required: true,
     },
     role: {
       type: String,
