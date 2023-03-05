@@ -11,23 +11,23 @@ const productSchema = new mongoose.Schema(
 
     slug: {
       required: true,
-        type: String,
-      unique : true,
-      lowercase : true
+      type: String,
+      unique: true,
+      lowercase: true,
     },
 
     description: {
       type: String,
-      required: true
+      required: true,
     },
 
     price: {
-      type: String,
+      type: Number,
       required: true,
     },
-    role: {
-      type: String,
-      default: "user",
+    category: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref : "Category"
     },
     isBlocked: {
       type: Boolean,
