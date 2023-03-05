@@ -98,11 +98,23 @@ exports.logOutCtrl = asyncHandler(async (req, res) => {
 
   if (!user) {
     res.clearCookie("refreshToken", {
-      httpOnly : true,
-      secure : true,
+      httpOnly: true,
+      secure: true,
     });
-    return res.status(httpStatus.FORBIDDEN)
+    return res.sendStatus(204);
   }
+  await User.findOneAndUpdate(
+    refreshToken,
+    {
+      refreshToken: "",
+    }
+  );
+
+  res.clearCookie("refreshToken", {
+    httpOnly: true,
+    secure: true,
+  });
+res.sendStatus(204);
 });
 
 // Get User
