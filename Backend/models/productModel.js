@@ -29,25 +29,24 @@ const productSchema = new mongoose.Schema(
         type: mongoose.Schema.Types.ObjectId,
         ref : "Category"
     },
-    isBlocked: {
-      type: Boolean,
-      default: false,
+    quantity: {
+      type: Number
     },
 
-    cart: {
+    images: {
       type: Array,
-      default: [],
     },
-    address: [
+    color: {
+        type: String,
+        enum : ["Black", "Brown", "Red"]
+    },
+    ratings: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Address",
-      },
-    ],
-    wishlist: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Product",
+            star: Number,
+            postedBy: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref : "User"
+            }
       },
     ],
 
