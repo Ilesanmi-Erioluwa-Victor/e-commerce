@@ -26,33 +26,37 @@ const productSchema = new mongoose.Schema(
       required: true,
     },
     category: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref : "Category"
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Category",
     },
     quantity: {
-      type: Number
+      type: Number,
     },
 
     images: {
       type: Array,
     },
+    brand: {
+      type: String,
+      enum: ["Apple", "Samsung", "Lenovo"],
+        },
+        sold: {
+            type: Number,
+      default : 0      
+    },
     color: {
-        type: String,
-        enum : ["Black", "Brown", "Red"]
+      type: String,
+      enum: ["Black", "Brown", "Red"],
     },
     ratings: [
       {
-            star: Number,
-            postedBy: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref : "User"
-            }
+        star: Number,
+        postedBy: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
       },
     ],
-
-    refreshToken: {
-      type: String,
-    },
   },
   {
     timestamps: true,
