@@ -90,7 +90,20 @@ exports.RefreshTokenHandlerCtrl = asyncHandler(async (req, res) => {
 });
 
 // Logout functionalities
-exports.logOutCtrl = asyncHandler(async (req, res) => {});
+exports.logOutCtrl = asyncHandler(async (req, res) => {
+  const cookie = req?.cookies;
+  if (!cookie?.refreshToken) throw new Error("No refresh token in cookies");
+  const refreshToken = cookie?.refreshToken;
+  const user = await User.findOne({ refreshToken });
+
+  if (!user) {
+    res.clearCookie("refreshToken", {
+      httpOnly : true,
+      secure : true,
+    });
+    return res.status(httpStatus.FORBIDDEN)
+  }
+});
 
 // Get User
 exports.getUserCtrl = asyncHandler(async (req, res) => {
