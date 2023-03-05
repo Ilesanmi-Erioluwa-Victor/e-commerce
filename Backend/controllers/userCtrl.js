@@ -89,6 +89,11 @@ exports.RefreshTokenHandler = asyncHandler(async (req, res) => {
   });
 });
 
+// Logout functionalities
+exports.logOut = asyncHandler(async (req, res) => {
+  
+})
+
 // Get User
 exports.getUserCtrl = asyncHandler(async (req, res) => {
   const { id } = req?.params;
