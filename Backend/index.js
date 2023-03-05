@@ -2,7 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv").config();
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
-
+const morgan = require("morgan");
 const authRoute = require("./routes/authRoute");
 const productRoute = require("./routes/productRoute");
 const dbConnect = require("./config/dbConnect");
@@ -17,7 +17,6 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-
 
 // Routes
 app.use("/api/v1/users", authRoute);
