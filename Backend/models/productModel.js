@@ -3,14 +3,17 @@ const mongoose = require("mongoose");
 // Declare the Schema of the Mongo model
 const productSchema = new mongoose.Schema(
   {
-    firstName: {
-      required: [true, "First name is required"],
+    title: {
+      required: true,
+      trim: true,
       type: String,
     },
 
-    lastName: {
-      required: [true, "Last name is required"],
-      type: String,
+    slug: {
+      required: true,
+        type: String,
+      unique : true,
+      lowercase : true
     },
 
     email: {
@@ -50,8 +53,8 @@ const productSchema = new mongoose.Schema(
     ],
 
     refreshToken: {
-      type : String,
-    }
+      type: String,
+    },
   },
   {
     timestamps: true,
