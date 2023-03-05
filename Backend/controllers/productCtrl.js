@@ -8,7 +8,7 @@ exports.createProductCtrl = asyncHandler(async (req, res) => {
     
       res.json(product);
   } catch (error) {
-    
+    throw new Error(error)
   }
 
 
