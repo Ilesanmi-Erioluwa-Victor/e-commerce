@@ -1,7 +1,7 @@
 const Product = require("../models/productModel");
 const httpStatus = require("http-status");
 const asyncHandler = require("express-async-handler");
-
+const slugify = require("slugify");
 // Create Product
 exports.createProductCtrl = asyncHandler(async (req, res) => {
   try {
