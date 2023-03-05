@@ -7,7 +7,10 @@ exports.createProductCtrl = asyncHandler(async (req, res) => {
   try {
     const product = await Product.create(req?.body);
 
-    res.json(product);
+    res.status(httpStatus.CREATED).json({
+      status: "success",
+      product,
+    });
   } catch (error) {
     throw new Error(error);
   }
@@ -19,18 +22,24 @@ exports.getProductCtrl = asyncHandler(async (req, res) => {
   try {
     const product = await Product.findById(id);
 
-    res.json(product);
+    res.status(httpStatus.CREATED).json({
+      status: "success",
+      product,
+    });
   } catch (error) {
     throw new Error(error);
   }
 });
 
-
 // Get all products
 exports.getAllProductsCtrl = asyncHandler(async (req, res) => {
   try {
-    const product = await Product.find();
-    res.json(product);
+    const products = await Product.find();
+    res.status(httpStatus.CREATED).json({
+      results: products.length,
+      status: "success",
+      products,
+    });
   } catch (error) {
     throw new Error(error);
   }
