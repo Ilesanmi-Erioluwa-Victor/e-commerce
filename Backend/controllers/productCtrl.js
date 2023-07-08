@@ -58,7 +58,7 @@ exports.updateProductCtrl = asyncHandler(async (req, res) => {
 
 // Delete product
 exports.deleteProductCtrl = asyncHandler(async (req, res) => {
-  const { id } = req?.params;
+  const  id  = req?.params?.id;
   try {
     const product = await Product.findByIdAndDelete(id);
 
