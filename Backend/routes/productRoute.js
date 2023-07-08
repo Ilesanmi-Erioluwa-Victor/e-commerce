@@ -11,13 +11,13 @@ const { isAdmin, authMiddleware } = require("../middlewares/authMiddlware");
 const router = express.Router();
 
 router
-  .route("/")
-  .post(isAdmin, authMiddleware, createProductCtrl)
+  .route('/')
+  .post(authMiddleware, isAdmin, createProductCtrl)
   .get(getAllProductsCtrl);
 
 router
-  .route("/:id")
+  .route('/:id')
   .get(getProductCtrl)
-  .put(isAdmin, authMiddleware, updateProductCtrl)
-  .delete(isAdmin, authMiddleware, deleteProductCtrl);
+  .put(authMiddleware, isAdmin, updateProductCtrl)
+  .delete(authMiddleware, isAdmin, deleteProductCtrl);
 module.exports = router;
