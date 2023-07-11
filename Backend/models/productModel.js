@@ -38,7 +38,7 @@ const productSchema = new mongoose.Schema(
       type: Array,
     },
     brand: {
-      type: String,
+      enum: ["Apple", "Samsung", ],
       required: true,
     },
     sold: {
