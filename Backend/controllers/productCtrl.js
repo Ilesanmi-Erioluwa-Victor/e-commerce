@@ -1,7 +1,7 @@
-const Product = require("../models/productModel");
-const httpStatus = require("http-status");
-const asyncHandler = require("express-async-handler");
-const slugify = require("slugify");
+const Product = require('../models/productModel');
+const httpStatus = require('http-status');
+const asyncHandler = require('express-async-handler');
+const slugify = require('slugify');
 
 // Create Product
 exports.createProductCtrl = asyncHandler(async (req, res) => {
@@ -12,7 +12,7 @@ exports.createProductCtrl = asyncHandler(async (req, res) => {
     const product = await Product.create(req?.body);
 
     res.status(httpStatus.CREATED).json({
-      status: "success",
+      status: 'success',
       product,
     });
   } catch (error) {
@@ -27,7 +27,7 @@ exports.getProductCtrl = asyncHandler(async (req, res) => {
     const product = await Product.findById(id);
 
     res.status(httpStatus.CREATED).json({
-      status: "success",
+      status: 'success',
       product,
     });
   } catch (error) {
@@ -48,7 +48,7 @@ exports.updateProductCtrl = asyncHandler(async (req, res) => {
     });
 
     res.status(httpStatus.CREATED).json({
-      status: "success",
+      status: 'success',
       product,
     });
   } catch (error) {
@@ -58,12 +58,12 @@ exports.updateProductCtrl = asyncHandler(async (req, res) => {
 
 // Delete product
 exports.deleteProductCtrl = asyncHandler(async (req, res) => {
-  const  id  = req?.params?.id;
+  const id = req?.params?.id;
   try {
     const product = await Product.findByIdAndDelete(id);
 
     res.status(httpStatus.NO_CONTENT).json({
-      status: "success",
+      status: 'success',
       product: null,
     });
   } catch (error) {
@@ -75,15 +75,17 @@ exports.deleteProductCtrl = asyncHandler(async (req, res) => {
 exports.getAllProductsCtrl = asyncHandler(async (req, res) => {
   try {
     // const products = await Product.where("category").equals(req.query.category)
-    const
+    const queryObj = { ...req.query };
+    const excludeFields = ["page", "sort", ]
+    console.log(queryObj);
     const products = await Product.find({
       brand: req.query.brand,
       category: req.query.category,
-      title : req.query.title,
+      title: req.query.title,
     });
     res.status(httpStatus.CREATED).json({
       results: products.length,
-      status: "success",
+      status: 'success',
       products,
     });
   } catch (error) {
