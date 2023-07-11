@@ -30,8 +30,6 @@ const isAdmin = asyncHandler(async (req, res, next) => {
     const adminUser = await User.findOne({ email });
     if (adminUser?.role !== 'admin') {
       throw new Error('You are not an admin...');
-    } else {
-      next();
     }
   } catch (error) {
     throw new Error(error.message);
