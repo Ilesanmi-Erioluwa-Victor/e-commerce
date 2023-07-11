@@ -26,8 +26,8 @@ const productSchema = new mongoose.Schema(
       required: true,
     },
     category: {
-      type: String,
-      required: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Category',
     },
     quantity: {
       type: Number,
@@ -47,14 +47,14 @@ const productSchema = new mongoose.Schema(
     },
     color: {
       type: String,
-      required : true
+      required: true,
     },
     ratings: [
       {
         star: Number,
         postedBy: {
           type: mongoose.Schema.Types.ObjectId,
-          ref: "User",
+          ref: 'User',
         },
       },
     ],
