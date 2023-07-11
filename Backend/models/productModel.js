@@ -26,8 +26,10 @@ const productSchema = new mongoose.Schema(
       required: true,
     },
     category: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Category',
+      // type: mongoose.Schema.Types.ObjectId,
+      // ref: 'Category',
+      type: String,
+      required : true
     },
     quantity: {
       type: Number,
@@ -39,16 +41,16 @@ const productSchema = new mongoose.Schema(
     },
     brand: {
       required: true,
-      enum: [
-        'Apple',
-        'Samsung',
-        'Philips',
-        'Lenovo',
-        'Nokia',
-        'Techno',
-        'Infinix',
-        'Redmi'
-      ],
+      // enum: [
+      //   'Apple',
+      //   'Samsung',
+      //   'Philips',
+      //   'Lenovo',
+      //   'Nokia',
+      //   'Techno',
+      //   'Infinix',
+      //   'Redmi'
+      // ],
       type : String
     },
     sold: {
@@ -58,7 +60,7 @@ const productSchema = new mongoose.Schema(
     color: {
       type: String,
       required: true,
-      enum: ['Black', 'Brown', 'Red'],
+      // enum: ['Black', 'Brown', 'Red'],
     },
     ratings: [
       {
