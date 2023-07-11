@@ -39,8 +39,8 @@ exports.getProductCtrl = asyncHandler(async (req, res) => {
 exports.updateProductCtrl = asyncHandler(async (req, res) => {
   const { id } = req?.params;
   try {
-    if (req?.body?.title) {
-      req.body.slug = slugify(req?.body?.title);
+    if (req.body.title) {
+      req.body.slug = slugify(req.body.title);
     }
     const product = await Product.findByIdAndUpdate(id, req.body, {
       new: true,
