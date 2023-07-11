@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 // Declare the Schema of the Mongo model
 const productSchema = new mongoose.Schema(
@@ -38,7 +38,16 @@ const productSchema = new mongoose.Schema(
       type: Array,
     },
     brand: {
-      enum: ["Apple", "Samsung", ],
+      enum: [
+        'Apple',
+        'Samsung',
+        'Philips',
+        'Lenovo',
+        'Nokia',
+        'Techno',
+        'Infinix',
+        'Redmi',
+      ],
       required: true,
     },
     sold: {
@@ -48,7 +57,7 @@ const productSchema = new mongoose.Schema(
     color: {
       type: String,
       required: true,
-      enum : ["Black", "Brown", "Red"]
+      enum: ['Black', 'Brown', 'Red'],
     },
     ratings: [
       {
@@ -65,5 +74,5 @@ const productSchema = new mongoose.Schema(
   }
 );
 
-const Product = mongoose.model("Product", productSchema);
+const Product = mongoose.model('Product', productSchema);
 module.exports = Product;
