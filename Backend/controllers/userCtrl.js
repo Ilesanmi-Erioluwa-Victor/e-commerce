@@ -36,7 +36,7 @@ exports.loginUserCtrl = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email });
 
   if (user && (await user.isPasswordMatched(password))) {
-    const refreshToken = await generateRefreshToken(user?.id);
+    const refreshToken = generateRefreshToken(user?.id);
     const updatedUser = await User.findByIdAndUpdate(
       user?._id,
       {
