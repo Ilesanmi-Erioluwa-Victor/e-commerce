@@ -38,6 +38,7 @@ const productSchema = new mongoose.Schema(
       type: Array,
     },
     brand: {
+      required: true,
       enum: [
         'Apple',
         'Samsung',
@@ -46,9 +47,9 @@ const productSchema = new mongoose.Schema(
         'Nokia',
         'Techno',
         'Infinix',
-        'Redmi',
+        'Redmi'
       ],
-      required: true,
+      type : String
     },
     sold: {
       type: Number,
