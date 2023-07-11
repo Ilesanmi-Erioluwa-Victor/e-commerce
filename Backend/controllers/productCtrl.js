@@ -79,7 +79,7 @@ exports.getAllProductsCtrl = asyncHandler(async (req, res) => {
     const excludeFields = ["page", "sort", "limits", "fields"];
    excludeFields.forEach((el) => delete queryObj[el]);
     
-    console.log(queryObj, req.query);
+    console.log(queryObj, req.query)
     const products = await Product.find({
       brand: req.query.brand,
       category: req.query.category,
