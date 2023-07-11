@@ -75,7 +75,9 @@ exports.deleteProductCtrl = asyncHandler(async (req, res) => {
 exports.getAllProductsCtrl = asyncHandler(async (req, res) => {
   try {
     const products = await Product.find({
-      brand : req.query.brand
+      brand: req.query.brand,
+      category: rwq.query.category,
+      title : req.query.title,
     });
     res.status(httpStatus.CREATED).json({
       results: products.length,
