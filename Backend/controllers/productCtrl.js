@@ -76,7 +76,7 @@ exports.getAllProductsCtrl = asyncHandler(async (req, res) => {
   try {
     const products = await Product.find({
       brand: req.query.brand,
-      category: rwq.query.category,
+      category: req.query.category,
       title : req.query.title,
     });
     res.status(httpStatus.CREATED).json({
