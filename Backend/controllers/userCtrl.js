@@ -234,8 +234,8 @@ exports.unBlockUserCtrl = asyncHandler(async (req, res) => {
 exports.updatePassword = asyncHandler(async (req, res) => {
   const { _id } = req?.user;
   const password = req.body.password;
-  ValidateMongoId(_id);
   try {
+    ValidateMongoId(_id);
     const user = await User.findById(_id);
     if (password) {
       user.password = password;
