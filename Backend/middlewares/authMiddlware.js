@@ -1,6 +1,9 @@
 const User = require('../models/userModel');
 const asyncHandler = require('express-async-handler');
 const jwt = require('jsonwebtoken');
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const authMiddleware = asyncHandler(async (req, res, next) => {
   let token;
