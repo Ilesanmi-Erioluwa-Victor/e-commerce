@@ -80,7 +80,8 @@ userSchema.methods.isPasswordMatched = async function (enteredPassword) {
 
 userSchema.methods.createPasswordResetToken = async function () {
   const resetToken = crypto.randomBytes(32).toString('hex');
-  this.passwordResetToken = crypto.createHash('sha256').update(resetToken);
+  this.passwordResetToken = crypto.createHash('sha256').update(resetToken).digest("hex");
+  this.passwordResetExpires = Date.now
 };
 //Export the model
 const User = mongoose.model('User', userSchema);
