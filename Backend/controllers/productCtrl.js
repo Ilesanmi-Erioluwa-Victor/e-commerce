@@ -80,15 +80,18 @@ exports.getAllProductsCtrl = asyncHandler(async (req, res) => {
     excludeFields.forEach((el) => delete queryObj[el]);
 
     let queryString = JSON.stringify(queryObj);
-    queryString = queryString.replace(/\b(gte|gt|lte|lt)\b/g, match => `$${match}`);
-    
-    const query = Product.find(JSON.parse(queryString))
- 
-    const products = await Product.find(queryObj);
+    queryString = queryString.replace(
+      /\b(gte|gt|lte|lt)\b/g,
+      (match) => `$${match}`
+    );
+
+    const query = Product.find(JSON.parse(queryString));
+
+    const product = await query;
     res.status(httpStatus.CREATED).json({
-      results: products.length,
+      results: product.length,
       status: 'success',
-      products,
+      product,
     });
   } catch (error) {
     throw new Error(error);
