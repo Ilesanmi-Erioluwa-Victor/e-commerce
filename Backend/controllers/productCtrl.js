@@ -110,7 +110,7 @@ exports.getAllProductsCtrl = asyncHandler(async (req, res) => {
     query = query.skip(skip).limit(limit)
 
     if(req.query.page) {
-      const numOfProducts = 
+      const productCount = await Product.countDocuments();
     }
     console.log(page, limit, skip);
 
