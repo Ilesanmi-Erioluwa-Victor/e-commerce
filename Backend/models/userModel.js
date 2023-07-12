@@ -1,32 +1,32 @@
-const mongoose = require("mongoose"); // Erase if already required
-const bcrypt = require("bcrypt");
-const crypto = require("crypto") 
+const mongoose = require('mongoose'); // Erase if already required
+const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 // Declare the Schema of the Mongo model
 const userSchema = new mongoose.Schema(
   {
     firstName: {
-      required: [true, "First name is required"],
+      required: [true, 'First name is required'],
       type: String,
     },
 
     lastName: {
-      required: [true, "Last name is required"],
+      required: [true, 'Last name is required'],
       type: String,
     },
 
     email: {
       type: String,
-      required: [true, "Email is required"],
+      required: [true, 'Email is required'],
       unique: true,
     },
 
     password: {
       type: String,
-      required: [true, "Password is required"],
+      required: [true, 'Password is required'],
     },
     role: {
       type: String,
-      default: "user",
+      default: 'user',
     },
     isBlocked: {
       type: Boolean,
@@ -40,22 +40,22 @@ const userSchema = new mongoose.Schema(
     address: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Address",
+        ref: 'Address',
       },
     ],
     wishlist: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Product",
+        ref: 'Product',
       },
     ],
 
     refreshToken: {
-      type : String,
+      type: String,
     },
     passwordChangeAt: Date,
     passwordResetToken: String,
-    passwordResetExpires: Date
+    passwordResetExpires: Date,
   },
   {
     timestamps: true,
@@ -63,9 +63,9 @@ const userSchema = new mongoose.Schema(
 );
 
 // encrypting of password...( Hashing...)
-userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) {
-    next()
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) {
+    next();
   }
   //   Hash Password
   const salt = await bcrypt.genSaltSync(10);
@@ -79,9 +79,9 @@ userSchema.methods.isPasswordMatched = async function (enteredPassword) {
 };
 
 userSchema.methods.createPasswordResetToken = async function () {
-  const resetToken = crypto.randomBytes(32).toString("hex");
-  this.passwordResetToken = 
-}
+  const resetToken = crypto.randomBytes(32).toString('hex');
+  this.passwordResetToken = crypto.createHash('sha256').update(resetToken);
+};
 //Export the model
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model('User', userSchema);
 module.exports = User;
