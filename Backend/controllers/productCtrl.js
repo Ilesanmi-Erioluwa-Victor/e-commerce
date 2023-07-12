@@ -104,6 +104,7 @@ exports.getAllProductsCtrl = asyncHandler(async (req, res) => {
     }
 
     // 4 Pagination
+    const page = req.query.page
 
     const product = await query;
     res.status(httpStatus.CREATED).json({
