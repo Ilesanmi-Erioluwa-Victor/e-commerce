@@ -94,6 +94,13 @@ exports.getAllProductsCtrl = asyncHandler(async (req, res) => {
     } else {
       query = query.sort("-createdAt")
      }
+
+    // 3 limit
+    if (req.query.limit) {
+      
+    } else {
+      
+    }
     
     const product = await query;
     res.status(httpStatus.CREATED).json({
