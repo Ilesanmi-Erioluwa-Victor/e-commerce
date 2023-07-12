@@ -237,6 +237,8 @@ exports.updatePassword = asyncHandler(async (req, res) => {
     const user = await User.findById(_id);
     if (password) {
       user.password = password;
+
+      const updatedPassword = await user.save();
     }
   } catch (error) {}
 });
