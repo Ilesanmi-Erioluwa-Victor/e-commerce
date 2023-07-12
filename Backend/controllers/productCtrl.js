@@ -79,7 +79,9 @@ exports.getAllProductsCtrl = asyncHandler(async (req, res) => {
     const excludeFields = ["page", "sort", "limits", "fields"];
    excludeFields.forEach((el) => delete queryObj[el]);
 
-    let queryString = JSON.stringify(queryObj)
+    let queryString = JSON.stringify(queryObj);
+
+    queryString = queryString.replace(/\b(gte|gt|lte|lt)\b/)
     
     console.log(queryObj, req.query)
     const products = await Product.find(queryObj);
