@@ -1,49 +1,43 @@
 const User = require('../models/userModel');
-const asyncHandler = require('express-async-handler');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 
 dotenv.config();
 
-const authMiddleware = asyncHandler(async (req, res, next) => {
-  let token;
-  if (req?.headers?.authorization?.startsWith('Bearer')) {
-    token = req?.headers?.authorization?.split(' ')[1];
-    try {
-      if (!token) {
-        return res
-          .status(401)
-          .json({ message: 'There is no token attached to your header...' });
-      } else {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
-        const user = await User.findById(decoded?.id);
-        if (!user) {
-          return res
-            .status(401)
-            .json({ message: 'Invalid token or user not found. Try again' });
-        }
-        req.user = user;
-        next();
-      }
-    } catch (error) {
-      return res.status(500).json({ message: error.message });
-    }
-  } else {
-    return res.status(401).json({ message: 'Unauthorized access.' });
-  }
-});
-
-const isAdmin = asyncHandler(async (req, res, next) => {
+const authMiddleware = async (req, res, next) => {
   try {
-    const email = req?.user?.email;
-    const adminUser = await User.findOne({ email });
-    if (!adminUser || adminUser.role !== 'admin') {
-      return res.status(403).json({ message: 'You are not an admin.' });
+    let token;
+    if (
+      req.headers.authorization &&
+      req.headers.authorization.startsWith('Bearer')
+    ) {
+      token = req.headers.authorization.split(' ')[1];
+      if (!process.env.JWT_SECRET_KEY)
+        throw new Error('SERVER JWT PASSWORD NOT SET');
+
+      if (!token)
+        throw new Error('There is no token attached to your header...');
+
+      const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+      req.user = decoded.id;
     }
     next();
   } catch (error) {
-    return res.status(500).json({ message: error.message });
+    next(error);
   }
-});
+};
+
+const isAdmin = async (req, res, next) => {
+  try {
+    const email = req.user.email;
+    const adminUser = await User.findOne({ email });
+    if (!adminUser || adminUser.role !== 'admin') {
+      throw new Error('You are not an admin.');
+    }
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
 
 module.exports = { authMiddleware, isAdmin };
