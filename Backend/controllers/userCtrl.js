@@ -1,10 +1,10 @@
-const User = require("../models/userModel");
-const httpStatus = require("http-status");
-const asyncHandler = require("express-async-handler");
-const jwt = require("jsonwebtoken");
-const generateToken = require("../config/jsonToken");
-const ValidateMongoId = require("../utils/validateMongoId");
-const generateRefreshToken = require("../config/refreshToken");
+const User = require('../models/userModel');
+const httpStatus = require('http-status');
+const asyncHandler = require('express-async-handler');
+const jwt = require('jsonwebtoken');
+const generateToken = require('../config/jsonToken');
+const ValidateMongoId = require('../utils/validateMongoId');
+const generateRefreshToken = require('../config/refreshToken');
 
 // Create User
 exports.createUserCtrl = asyncHandler(async (req, res) => {
@@ -20,12 +20,12 @@ exports.createUserCtrl = asyncHandler(async (req, res) => {
       password: req?.body?.password,
     });
     res.status(httpStatus.CREATED).json({
-      status: "success",
+      status: 'success',
       user,
     });
   } else {
     //   User already exists
-    throw new Error("User already exists, login to your account");
+    throw new Error('User already exists, login to your account');
   }
 });
 
@@ -46,12 +46,12 @@ exports.loginUserCtrl = asyncHandler(async (req, res) => {
         new: true,
       }
     );
-    res.cookie("refreshToken", refreshToken, {
+    res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       maxAge: 72 * 60 * 60 * 1000,
     });
     res.status(httpStatus.OK).json({
-      status: "success",
+      status: 'success',
       user: {
         _id: user?._id,
         firstName: user?.firstName,
@@ -61,29 +61,29 @@ exports.loginUserCtrl = asyncHandler(async (req, res) => {
       },
     });
   } else {
-    throw new Error("Invalid credentials, please try again...");
+    throw new Error('Invalid credentials, please try again...');
   }
 });
 
 // Handle Refresh Handler.
 exports.RefreshTokenHandlerCtrl = asyncHandler(async (req, res) => {
   const cookie = req.cookies;
-  if (!cookie?.refreshToken) throw new Error("No refresh token in cookies");
+  if (!cookie?.refreshToken) throw new Error('No refresh token in cookies');
   const refreshToken = cookie?.refreshToken;
 
   const user = await User.findOne({ refreshToken });
   if (!user)
-    throw new Error("No refreshToken found in DB or not matched, try again...");
+    throw new Error('No refreshToken found in DB or not matched, try again...');
 
   jwt.verify(refreshToken, process.env.JWT_SECRET_KEY, (err, decoded) => {
     if (err || user?.id !== decoded?.id) {
-      throw new Error("There is something wrong with refresh token");
+      throw new Error('There is something wrong with refresh token');
     }
 
     const accessToken = generateToken(user?._id);
 
     res.status(httpStatus.OK).json({
-      status: "success",
+      status: 'success',
       accessToken,
     });
   });
@@ -92,29 +92,26 @@ exports.RefreshTokenHandlerCtrl = asyncHandler(async (req, res) => {
 // Logout functionalities
 exports.logOutCtrl = asyncHandler(async (req, res) => {
   const cookie = req?.cookies;
-  if (!cookie?.refreshToken) throw new Error("No refresh token in cookies");
+  if (!cookie?.refreshToken) throw new Error('No refresh token in cookies');
   const refreshToken = cookie?.refreshToken;
   const user = await User.findOne({ refreshToken });
 
   if (!user) {
-    res.clearCookie("refreshToken", {
+    res.clearCookie('refreshToken', {
       httpOnly: true,
       secure: true,
     });
     return res.sendStatus(204);
   }
-  await User.findOneAndUpdate(
-    refreshToken,
-    {
-      refreshToken: "",
-    }
-  );
+  await User.findOneAndUpdate(refreshToken, {
+    refreshToken: '',
+  });
 
-  res.clearCookie("refreshToken", {
+  res.clearCookie('refreshToken', {
     httpOnly: true,
     secure: true,
   });
-res.sendStatus(204);
+  res.sendStatus(204);
 });
 
 // Get User
@@ -125,7 +122,7 @@ exports.getUserCtrl = asyncHandler(async (req, res) => {
   try {
     const user = await User.findById(id);
     res.status(httpStatus.OK).json({
-      status: "success",
+      status: 'success',
       user,
     });
   } catch (error) {
@@ -138,7 +135,7 @@ exports.getAllUsersCtrl = asyncHandler(async (req, res) => {
   try {
     const user = await User.find();
     res.status(httpStatus.OK).json({
-      status: "success",
+      status: 'success',
       results: user?.length,
       user,
     });
@@ -154,7 +151,7 @@ exports.deleteUserCtrl = asyncHandler(async (req, res) => {
   try {
     const user = await User.findByIdAndDelete(id);
     res.status(httpStatus.NO_CONTENT).json({
-      status: "success",
+      status: 'success',
       data: null,
     });
   } catch (error) {
@@ -178,7 +175,7 @@ exports.updateUserCtrl = asyncHandler(async (req, res) => {
       { new: true, runValidators: true }
     );
     res.status(httpStatus.OK).json({
-      status: "success",
+      status: 'success',
       data: user,
     });
   } catch (error) {
@@ -201,8 +198,8 @@ exports.blockUserCtrl = asyncHandler(async (req, res) => {
       }
     );
     res.status(httpStatus.OK).json({
-      status: "success",
-      message: "User blocked",
+      status: 'success',
+      message: 'User blocked',
     });
   } catch (error) {
     throw new Error(error);
@@ -224,8 +221,8 @@ exports.unBlockUserCtrl = asyncHandler(async (req, res) => {
       }
     );
     res.status(httpStatus.OK).json({
-      status: "success",
-      message: "User unblocked",
+      status: 'success',
+      message: 'User unblocked',
     });
   } catch (error) {
     throw new Error(error);
@@ -233,5 +230,5 @@ exports.unBlockUserCtrl = asyncHandler(async (req, res) => {
 });
 
 exports.updatePassword = asyncHandler(async (req, res) => {
-  
-})
+  const { id } = req?.params;
+});
