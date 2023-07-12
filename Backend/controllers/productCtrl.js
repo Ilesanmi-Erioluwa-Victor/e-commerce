@@ -106,7 +106,7 @@ exports.getAllProductsCtrl = asyncHandler(async (req, res) => {
     // 4 Pagination
     const page = req.query.page;
     const limit = req.query.limit;
-    const skip = req.query.skip;
+    const skip = (page - 1) * limit;
     const product = await query;
     res.status(httpStatus.CREATED).json({
       results: product.length,
