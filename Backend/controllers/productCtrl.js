@@ -88,6 +88,10 @@ exports.getAllProductsCtrl = asyncHandler(async (req, res) => {
     const query = Product.find(JSON.parse(queryString));
 
     // 2 Sorting
+    if (req.query.sort) {
+      const sortBy = req.query.sort.split(',').join(" ");
+      query = req.query.sort(sortBy)
+    } else { }
     
     const product = await query;
     res.status(httpStatus.CREATED).json({
