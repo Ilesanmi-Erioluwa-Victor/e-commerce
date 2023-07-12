@@ -6,10 +6,10 @@ const slugify = require('slugify');
 // Create Product
 exports.createProductCtrl = asyncHandler(async (req, res) => {
   try {
-    if (req?.body?.title) {
-      req.body.slug = slugify(req?.body?.title);
+    if (req.body.title) {
+      req.body.slug = slugify(req.body.title);
     }
-    const product = await Product.create(req?.body);
+    const product = await Product.create(req.body);
 
     res.status(httpStatus.CREATED).json({
       status: 'success',
