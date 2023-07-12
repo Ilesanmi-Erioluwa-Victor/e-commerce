@@ -74,6 +74,7 @@ exports.deleteProductCtrl = asyncHandler(async (req, res) => {
 // Get all products
 exports.getAllProductsCtrl = asyncHandler(async (req, res) => {
   try {
+   // 1 Filtering
     // const products = await Product.where("category").equals(req.query.category)
     const queryObj = { ...req.query };
     const excludeFields = ['page', 'sort', 'limits', 'fields'];
@@ -84,9 +85,10 @@ exports.getAllProductsCtrl = asyncHandler(async (req, res) => {
       /\b(gte|gt|lte|lt)\b/g,
       (match) => `$${match}`
     );
-
     const query = Product.find(JSON.parse(queryString));
 
+    // 2 Sorting
+    
     const product = await query;
     res.status(httpStatus.CREATED).json({
       results: product.length,
