@@ -80,10 +80,10 @@ exports.getAllProductsCtrl = asyncHandler(async (req, res) => {
     excludeFields.forEach((el) => delete queryObj[el]);
 
     let queryString = JSON.stringify(queryObj);
-
-    queryString = queryString.replace(/\b(gte|gt|lte|lt)\b/g, match =>`$${match}`);
-
-    console.log(queryObj, req.query);
+    queryString = queryString.replace(/\b(gte|gt|lte|lt)\b/g, match => `$${match}`);
+    
+    const query = Product.find(JSON.parse(queryString))
+ 
     const products = await Product.find(queryObj);
     res.status(httpStatus.CREATED).json({
       results: products.length,
