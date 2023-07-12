@@ -74,20 +74,14 @@ exports.deleteProductCtrl = asyncHandler(async (req, res) => {
 // Get all products
 exports.getAllProductsCtrl = asyncHandler(async (req, res) => {
   try {
-    // 1 Filtering
-    // const products = await Product.where("category").equals(req.query.category)
+    // 1. Filtering
     const queryObj = { ...req.query };
-    const excludeFields = ['page', 'sort', 'limits', 'fields'];
+    const excludeFields = ['page', 'sort', 'limit', 'fields'];
     excludeFields.forEach((el) => delete queryObj[el]);
 
-    let queryString = JSON.stringify(queryObj);
-    queryString = queryString.replace(
-      /\b(gte|gt|lte|lt)\b/g,
-      (match) => `$${match}`
-    );
-    let query = Product.find(JSON.parse(queryString));
+    let query = Product.find(queryObj);
 
-    // 2 Sorting
+    // 2. Sorting
     if (req.query.sort) {
       const sortBy = req.query.sort.split(',').join(' ');
       query = query.sort(sortBy);
@@ -95,7 +89,7 @@ exports.getAllProductsCtrl = asyncHandler(async (req, res) => {
       query = query.sort('-createdAt');
     }
 
-    // 3 limit
+    // 3. Field selection
     if (req.query.fields) {
       const fields = req.query.fields.split(',').join(' ');
       query = query.select(fields);
@@ -103,27 +97,32 @@ exports.getAllProductsCtrl = asyncHandler(async (req, res) => {
       query = query.select('-__v');
     }
 
-    // 4 Pagination
-    const page = req.query.page;
-    const limit = req.query.limit;
+    // 4. Pagination
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
     const skip = (page - 1) * limit;
-    query = query.skip(skip).limit(limit)
 
-    if(req.query.page) {
-      const productCount = await Product.countDocuments();
+    query = query.skip(skip).limit(limit);
 
-      if (skip >= productCount) throw new Error("This page does not exist")
-      
+    // Get total count for pagination check
+    const productCount = await Product.countDocuments(queryObj);
+
+    if (skip >= productCount) {
+      throw new Error('This page does not exist.');
     }
-    console.log(page, limit, skip);
 
-    const product = await query;
-    res.status(httpStatus.CREATED).json({
-      results: product.length,
+    const products = await query;
+
+    res.status(httpStatus.OK).json({
+      results: products.length,
       status: 'success',
-      product,
+      products,
     });
   } catch (error) {
-    throw new Error(error);
+    res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+      status: 'error',
+      message: error.message,
+    });
   }
 });
+
