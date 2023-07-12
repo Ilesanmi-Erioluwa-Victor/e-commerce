@@ -74,7 +74,7 @@ exports.deleteProductCtrl = asyncHandler(async (req, res) => {
 // Get all products
 exports.getAllProductsCtrl = asyncHandler(async (req, res) => {
   try {
-   // 1 Filtering
+    // 1 Filtering
     // const products = await Product.where("category").equals(req.query.category)
     const queryObj = { ...req.query };
     const excludeFields = ['page', 'sort', 'limits', 'fields'];
@@ -89,20 +89,22 @@ exports.getAllProductsCtrl = asyncHandler(async (req, res) => {
 
     // 2 Sorting
     if (req.query.sort) {
-      const sortBy = req.query.sort.split(',').join(" ");
-      query = query.sort(sortBy)
+      const sortBy = req.query.sort.split(',').join(' ');
+      query = query.sort(sortBy);
     } else {
-      query = query.sort("-createdAt")
-     }
+      query = query.sort('-createdAt');
+    }
 
     // 3 limit
     if (req.query.fields) {
       const fields = req.query.fields.split(',').join(' ');
-      query = query.select(fields)
+      query = query.select(fields);
     } else {
-      query = query.select("__v")
+      query = query.select('-__v');
     }
-    
+
+    // 4 Pagination
+
     const product = await query;
     res.status(httpStatus.CREATED).json({
       results: product.length,
