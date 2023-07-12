@@ -230,5 +230,12 @@ exports.unBlockUserCtrl = asyncHandler(async (req, res) => {
 });
 
 exports.updatePassword = asyncHandler(async (req, res) => {
-  const { id } = req?.params;
+  const { _id } = req?.user;
+  const password = req.body.password;
+  ValidateMongoId(_id)
+  try {
+    const user = await User.findById(_id)
+  } catch (error) {
+    
+  }
 });
