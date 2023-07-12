@@ -1,7 +1,7 @@
 const User = require('../models/userModel');
 const asyncHandler = require('express-async-handler');
 const jwt = require('jsonwebtoken');
-import dotenv from 'dotenv';
+const dotenv = require('dotenv');
 
 dotenv.config();
 
@@ -20,7 +20,7 @@ const authMiddleware = asyncHandler(async (req, res, next) => {
         if (!user) {
           return res
             .status(401)
-            .json({ message: 'Invalid token or user not found.' });
+            .json({ message: 'Invalid token or user not found. Try again' });
         }
         req.user = user;
         next();
