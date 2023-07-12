@@ -18,6 +18,7 @@ exports.createUserCtrl = asyncHandler(async (req, res) => {
       lastName: req?.body?.lastName,
       email: req?.body?.email,
       password: req?.body?.password,
+      mobile : req.body.mobile
     });
     res.status(httpStatus.CREATED).json({
       status: 'success',
@@ -171,6 +172,7 @@ exports.updateUserCtrl = asyncHandler(async (req, res) => {
         firstName: req?.body?.firstName,
         lastName: req?.body?.lastName,
         email: req?.body?.email,
+        mobile: req.body.mobile
       },
       { new: true, runValidators: true }
     );
