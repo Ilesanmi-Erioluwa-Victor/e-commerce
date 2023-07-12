@@ -96,8 +96,8 @@ exports.getAllProductsCtrl = asyncHandler(async (req, res) => {
      }
 
     // 3 limit
-    if (req.query.limit) {
-      
+    if (req.query.fields) {
+      const fields = req.query.fields.split(',').join(' ');
     } else {
       
     }
