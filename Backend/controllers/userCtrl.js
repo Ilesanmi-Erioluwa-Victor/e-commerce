@@ -231,3 +231,7 @@ exports.unBlockUserCtrl = asyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
+
+exports.updatePassword = asyncHandler(async (req, res) => {
+  
+})
