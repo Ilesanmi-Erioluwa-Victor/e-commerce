@@ -80,11 +80,7 @@ exports.getAllProductsCtrl = asyncHandler(async (req, res) => {
    excludeFields.forEach((el) => delete queryObj[el]);
     
     console.log(queryObj, req.query)
-    const products = await Product.find({
-      brand: req.query.brand,
-      category: req.query.category,
-      title: req.query.title,
-    });
+    const products = await Product.find(queryObj);
     res.status(httpStatus.CREATED).json({
       results: products.length,
       status: 'success',
