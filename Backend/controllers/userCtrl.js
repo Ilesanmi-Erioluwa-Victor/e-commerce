@@ -252,11 +252,12 @@ exports.updatePassword = asyncHandler(async (req, res) => {
 });
 
 exports.forgotPasswordToken = asyncHandler(async (req, res) => {
-  try {
     const { email } = req.body;
-    const user = await User.findOne({ email })
-    
-    if(!user) throw new Error("User not found")
+    const user = await User.findOne({ email });
+
+    if (!user) throw new Error('User not found with this email, try again');
+  try {
+  
   } catch (error) {
     
   }
