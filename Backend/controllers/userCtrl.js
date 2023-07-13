@@ -258,6 +258,7 @@ exports.forgotPasswordToken = asyncHandler(async (req, res) => {
 
   if (!user) throw new Error('User not found with this email, try again');
   try {
+    console.log(user)
     const token = await user.createPasswordResetToken();
     await user.save();
 
@@ -274,7 +275,7 @@ exports.forgotPasswordToken = asyncHandler(async (req, res) => {
       html: resetURL,
     };
     sendMail(data);
-    res.json({token: token})
+    res.json({ token: token });
   } catch (error) {
     throw new Error(error);
   }

@@ -37,6 +37,15 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    passwordChangeAt: {
+      type: Date,
+    },
+    passwordResetToken: {
+      type: String,
+    },
+    passwordResetExpires: {
+      type: Date,
+    },
 
     cart: {
       type: Array,
@@ -58,9 +67,6 @@ const userSchema = new mongoose.Schema(
     refreshToken: {
       type: String,
     },
-    passwordChangeAt: Date,
-    passwordResetToken: String,
-    passwordResetExpires: Date,
   },
   {
     timestamps: true,
