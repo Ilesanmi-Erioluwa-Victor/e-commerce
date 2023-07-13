@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const generateToken = require('../config/jsonToken');
 const ValidateMongoId = require('../utils/validateMongoId');
 const generateRefreshToken = require('../config/refreshToken');
+const { sendMail } = require('./emailCtrl');
 
 // Create User
 exports.createUserCtrl = asyncHandler(async (req, res) => {
@@ -262,16 +263,17 @@ exports.forgotPasswordToken = asyncHandler(async (req, res) => {
 
     const resetURL = `Hi, please follow this link to reset your password, This link is valid till 10 minutes
     <a href="href= ${req.protocol}://${req.get(
-        'host'
-      )}/api/v1/users/reset-token/${token}">Click here</a>
-    `
+      'host'
+    )}/api/v1/users/reset-token/${token}">Click here</a>
+    `;
 
     const data = {
-      to : email,
-      subject: "Forgot password Link",
-      text : "Click here to reset your password",
-      html : resetURL
-    }
+      to: email,
+      subject: 'Forgot password Link',
+      text: 'Click here to reset your password',
+      html: resetURL,
+    };
+    sendMail(data);
   } catch (error) {
     throw new Error(error);
   }
