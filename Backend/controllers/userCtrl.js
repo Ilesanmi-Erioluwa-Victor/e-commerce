@@ -257,7 +257,7 @@ exports.forgotPasswordToken = asyncHandler(async (req, res) => {
 
     if (!user) throw new Error('User not found with this email, try again');
   try {
-  
+  const token = await user.createPasswordResetToken
   } catch (error) {
     throw new Error(error)
   }
