@@ -259,6 +259,8 @@ exports.forgotPasswordToken = asyncHandler(async (req, res) => {
   try {
     const token = await user.createPasswordResetToken();
     await user.save();
+
+    const resetUrl = ``
   } catch (error) {
     throw new Error(error);
   }
