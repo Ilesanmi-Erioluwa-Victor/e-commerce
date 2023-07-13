@@ -274,7 +274,7 @@ exports.forgotPasswordToken = asyncHandler(async (req, res) => {
       html: resetURL,
     };
     sendMail(data);
-    res.json(token)
+    res.json({token: token})
   } catch (error) {
     throw new Error(error);
   }
