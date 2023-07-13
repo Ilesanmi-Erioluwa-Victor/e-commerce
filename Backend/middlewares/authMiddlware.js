@@ -29,13 +29,13 @@ const authMiddleware = async (req, res, next) => {
 
 const isAdmin = async (req, res, next) => {
   try {
-    const email = req.user.email;
-    const adminUser = await User.findOne({ email });
-      console.log(adminUser);
+    const id = req?.user;
+    const adminUser = await User.findById(id);
     if (!adminUser || adminUser.role !== 'admin') {
       throw new Error('You are not an admin.');
     }
-  
+    console.log(adminUser);
+
     next();
   } catch (error) {
     next(error);
