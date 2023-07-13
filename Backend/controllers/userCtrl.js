@@ -261,7 +261,9 @@ exports.forgotPasswordToken = asyncHandler(async (req, res) => {
     await user.save();
 
     const resetURL = `Hi, please follow this link to reset your password, This link is valid till 10 minutes
-    <a>Click here</a>
+    <a href="href= ${req.protocol}://${req.get(
+        'host'
+      )}/api/v1/users/reset-token/${token}">Click here</a>
     `
   } catch (error) {
     throw new Error(error);
