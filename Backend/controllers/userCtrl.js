@@ -265,6 +265,12 @@ exports.forgotPasswordToken = asyncHandler(async (req, res) => {
         'host'
       )}/api/v1/users/reset-token/${token}">Click here</a>
     `
+
+    const data = {
+      to : email,
+      subject: "Forgot password Link",
+      html : resetURL
+    }
   } catch (error) {
     throw new Error(error);
   }
