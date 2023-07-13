@@ -254,6 +254,7 @@ exports.updatePassword = asyncHandler(async (req, res) => {
 exports.forgotPasswordToken = asyncHandler(async (req, res) => {
   try {
     const { email } = req.body;
+    const user = await User.findOne({email})
   } catch (error) {
     
   }
