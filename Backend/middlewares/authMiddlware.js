@@ -34,7 +34,6 @@ const isAdmin = async (req, res, next) => {
     if (!adminUser || adminUser.role !== 'admin') {
       throw new Error('You are not an admin.');
     }
-    
     next();
   } catch (error) {
     next(error);

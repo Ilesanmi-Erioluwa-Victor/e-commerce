@@ -238,7 +238,6 @@ exports.updatePassword = asyncHandler(async (req, res) => {
   const password = req.body.password;
     ValidateMongoId(_id);
     const user = await User.findById(_id);
-    console.log(user)
     if (password) {
       user.password = password;
 
