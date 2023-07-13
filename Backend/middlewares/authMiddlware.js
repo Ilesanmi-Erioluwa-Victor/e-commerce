@@ -31,9 +31,11 @@ const isAdmin = async (req, res, next) => {
   try {
     const email = req.user.email;
     const adminUser = await User.findOne({ email });
+      console.log(adminUser);
     if (!adminUser || adminUser.role !== 'admin') {
       throw new Error('You are not an admin.');
     }
+  
     next();
   } catch (error) {
     next(error);
