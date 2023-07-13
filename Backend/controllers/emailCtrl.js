@@ -7,7 +7,7 @@ exports.sendMail = asyncHandler(async (data, res, req) => {
      port: 2525,
      auth: {
        user: `${process.env.NODEMAILER_USERNAME}`,
-       pass: `${process.env.NODEMAILER_PASS}`,
+       pass: `${process.env.GOOGLE_APP_PASS}`,
      },
    });
 
