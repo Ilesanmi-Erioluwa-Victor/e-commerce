@@ -19,10 +19,10 @@ exports.sendMail = asyncHandler(async (data, res, req) => {
 
    const mailOptions = {
      from: "Ifelola <'ifedayo1452@gmail.com>'",
-     to: 'ericjay1452@gmail.com',
-     subject: 'Account Verification ',
-     text: 'Hey there, it’s our first message sent with Nodemailer 😉 ',
-     html: resetUrl,
+     to: data.to,
+     subject: data.subject,
+     text: data.text,
+     html: data.html,
    };
 
    transport.sendMail(mailOptions, (error, info) => {
