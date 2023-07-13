@@ -20,6 +20,7 @@ const router = express.Router();
 router.post("/register", createUserCtrl);
 router.post("/login", loginUserCtrl);
 router.get("/refresh", RefreshTokenHandlerCtrl);
+router.post("/forgot-password", forgotPasswordToken)
 router.get("/logout", logOutCtrl);
 router.put("/password",authMiddleware, updatePassword)
 router.get("/:id", authMiddleware, isAdmin, getUserCtrl);
