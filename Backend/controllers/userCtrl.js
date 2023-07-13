@@ -269,6 +269,7 @@ exports.forgotPasswordToken = asyncHandler(async (req, res) => {
     const data = {
       to : email,
       subject: "Forgot password Link",
+      text : "Click here to reset your password",
       html : resetURL
     }
   } catch (error) {
