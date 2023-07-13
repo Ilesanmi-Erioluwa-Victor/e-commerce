@@ -253,7 +253,7 @@ exports.updatePassword = asyncHandler(async (req, res) => {
 
 exports.forgotPasswordToken = asyncHandler(async (req, res) => {
   try {
-    
+    const { email } = req.body;
   } catch (error) {
     
   }
