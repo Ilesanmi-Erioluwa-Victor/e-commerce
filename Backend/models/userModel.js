@@ -39,12 +39,15 @@ const userSchema = new mongoose.Schema(
     },
     passwordChangeAt: {
       type: Date,
+      default: new Date()
     },
     passwordResetToken: {
       type: String,
+      default: ""
     },
     passwordResetExpires: {
       type: Date,
+      default: new Date()
     },
 
     cart: {
@@ -96,7 +99,7 @@ userSchema.methods.createPasswordResetToken = async function () {
     .update(resetToken)
     .digest('hex');
   this.passwordResetExpires = Date.now + 30 * 60 * 1000; //Ten{10} minutes
-
+  console.log(this.passwordResetExpires);
   return resetToken;
 };
 //Export the model
