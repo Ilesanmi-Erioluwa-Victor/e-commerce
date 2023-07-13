@@ -260,7 +260,9 @@ exports.forgotPasswordToken = asyncHandler(async (req, res) => {
     const token = await user.createPasswordResetToken();
     await user.save();
 
-    const resetURL = `Hi, please follow this link to reset your password, This link is valid till 10 minutes`
+    const resetURL = `Hi, please follow this link to reset your password, This link is valid till 10 minutes
+    <a>Click here</a>
+    `
   } catch (error) {
     throw new Error(error);
   }
