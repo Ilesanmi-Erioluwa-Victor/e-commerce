@@ -18,7 +18,7 @@ exports.createUserCtrl = asyncHandler(async (req, res) => {
       lastName: req?.body?.lastName,
       email: req?.body?.email,
       password: req?.body?.password,
-      mobile : req.body.mobile
+      mobile: req.body.mobile,
     });
     res.status(httpStatus.CREATED).json({
       status: 'success',
@@ -172,7 +172,7 @@ exports.updateUserCtrl = asyncHandler(async (req, res) => {
         firstName: req?.body?.firstName,
         lastName: req?.body?.lastName,
         email: req?.body?.email,
-        mobile: req.body.mobile
+        mobile: req.body.mobile,
       },
       { new: true, runValidators: true }
     );
@@ -233,33 +233,32 @@ exports.unBlockUserCtrl = asyncHandler(async (req, res) => {
 
 exports.updatePassword = asyncHandler(async (req, res) => {
   try {
-  console.log(req.user)
-  const _id = req?.user;
-  const password = req.body.password;
+    console.log(req.user);
+    const _id = req?.user;
+    const password = req.body.password;
     ValidateMongoId(_id);
     const user = await User.findById(_id);
     if (password) {
       user.password = password;
 
       const updatedPassword = await user.save();
-      res.json(updatedPassword)
+      res.json(updatedPassword);
     } else {
-      res.json(user)
+      res.json(user);
     }
   } catch (error) {
-    throw new Error(error)
+    throw new Error(error);
   }
 });
 
 exports.forgotPasswordToken = asyncHandler(async (req, res) => {
-    const { email } = req.body;
-    const user = await User.findOne({ email });
+  const { email } = req.body;
+  const user = await User.findOne({ email });
 
-    if (!user) throw new Error('User not found with this email, try again');
+  if (!user) throw new Error('User not found with this email, try again');
   try {
-  const token = await user.createPasswordResetToken
+    const token = await user.createPasswordResetToken();
   } catch (error) {
-    throw new Error(error)
+    throw new Error(error);
   }
-  
-})
+});
