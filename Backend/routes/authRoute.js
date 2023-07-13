@@ -10,7 +10,8 @@ const {
   unBlockUserCtrl,
   RefreshTokenHandlerCtrl,
   logOutCtrl,
-  updatePassword
+  updatePassword,
+  forgotPasswordToken
 } = require("../controllers/userCtrl");
 const { authMiddleware, isAdmin } = require("../middlewares/authMiddlware");
 
