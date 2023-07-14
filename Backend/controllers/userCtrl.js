@@ -258,21 +258,20 @@ exports.forgotPasswordToken = asyncHandler(async (req, res) => {
 
   if (!user) throw new Error('User not found with this email, try again');
   try {
-    console.log(user)
     const token = await user.createPasswordResetToken();
     await user.save();
 
-    const resetURL = `Hi, please follow this link to reset your password, This link is valid till 10 minutes
-    <a href="href= ${req.protocol}://${req.get(
+    const resetUrl = `If you were requested to reset your account password, reset now, otherwise ignore this message
+        <a href= ${req.protocol}://${req.get(
       'host'
-    )}/api/v1/users/reset-token/${token}">Click here</a>
-    `;
+    )}/api/v1/users/reset-token/${token}>Click to verify..</a>
+       `;
 
     const data = {
       to: email,
       subject: 'Forgot password Link',
       text: 'Click here to reset your password',
-      html: resetURL,
+      html: resetUrl,
     };
     sendMail(data);
     res.json({ token: token });
@@ -280,3 +279,4 @@ exports.forgotPasswordToken = asyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
+
