@@ -281,5 +281,6 @@ exports.forgotPasswordToken = asyncHandler(async (req, res) => {
 });
 
 exports.resetPassword = asyncHandler(async (req, res) => {
-  
-})
+  const { password } = req.body;
+  const token = req?.params?.token;
+});
