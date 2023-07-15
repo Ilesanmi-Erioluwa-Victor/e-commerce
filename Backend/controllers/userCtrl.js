@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const generateToken = require('../config/jsonToken');
 const ValidateMongoId = require('../utils/validateMongoId');
 const generateRefreshToken = require('../config/refreshToken');
-const crypto = require("crypto")
+const crypto = require('crypto');
 const { sendMail } = require('./emailCtrl');
 
 // Create User
@@ -284,10 +284,12 @@ exports.forgotPasswordToken = asyncHandler(async (req, res) => {
 exports.resetPassword = asyncHandler(async (req, res) => {
   const { password } = req.body;
   const token = req?.params?.token;
-  const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
+  const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
 
   const user = await User.findOne({
     passwordResetToken: hashedToken,
-    passwordResetExpires : {$gte : Date.now()}
-  })
+    passwordResetExpires: { $gte: Date.now() },
+  });
+
+  if (!user) throw new Error('Token expired, try again');
 });
