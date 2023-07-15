@@ -22,38 +22,9 @@ const blogSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    passwordChangeAt: {
-      type: Date,
-      default: new Date(),
-    },
-    passwordResetToken: {
-      type: String,
-      default: '',
-    },
-    passwordResetExpires: {
-      type: Date,
-      default: new Date(),
-    },
-
-    cart: {
-      type: Array,
-      default: [],
-    },
-    address: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Address',
-      },
-    ],
-    wishlist: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Product',
-      },
-    ],
-
-    refreshToken: {
-      type: String,
+    isLiked: {
+      type: Boolean,
+      default: false,
     },
   },
   {
