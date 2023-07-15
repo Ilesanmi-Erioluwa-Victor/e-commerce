@@ -292,4 +292,7 @@ exports.resetPassword = asyncHandler(async (req, res) => {
   });
 
   if (!user) throw new Error('Token expired, try again');
+
+  user.password = password;
+  await user.save()
 });
