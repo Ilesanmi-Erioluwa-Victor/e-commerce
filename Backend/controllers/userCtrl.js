@@ -282,19 +282,25 @@ exports.forgotPasswordToken = asyncHandler(async (req, res) => {
 });
 
 exports.resetPassword = asyncHandler(async (req, res) => {
-  const { password } = req.body;
-  const token = req?.params?.token;
-  const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
+  try {
+    const { password } = req.body;
+    const token = req?.params?.token;
+    const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
 
-  const user = await User.findOne({
-    passwordResetToken: hashedToken,
-    passwordResetExpires: { $gte: Date.now() },
-  });
+    const user = await User.findOne({
+      passwordResetToken: hashedToken,
+      passwordResetExpires: { $gte: Date.now() },
+    });
 
-  if (!user) throw new Error('Token expired, try again');
+    if (!user) throw new Error('Token expired, try again');
 
-  user.password = password;
-  user.passwordResetToken = "";
-  user.passwordResetExpires = undefined
-  await user.save()
+    user.password = password;
+    user.passwordResetToken = '';
+    user.passwordResetExpires = undefined;
+    await user.save();
+    res.json(user);
+  } catch (error) {
+    throw new Error(error)
+  }
+  
 });
