@@ -22,7 +22,7 @@ router.post('/register', createUserCtrl);
 router.post('/login', loginUserCtrl);
 router.get('/refresh', RefreshTokenHandlerCtrl);
 router.post('/forgot-password', forgotPasswordToken);
-router.post('/reset-password/:token', resetPassword);
+router.put('/reset-password/:token', resetPassword);
 router.get('/logout', logOutCtrl);
 router.put('/password', authMiddleware, updatePassword);
 router.get('/:id', authMiddleware, isAdmin, getUserCtrl);
