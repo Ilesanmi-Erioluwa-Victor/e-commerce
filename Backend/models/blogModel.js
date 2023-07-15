@@ -30,7 +30,10 @@ const blogSchema = new mongoose.Schema(
         isDisliked: {
             type: Boolean,
             default : false
-    }
+        },
+        likes: {
+            type : mongoose.Schema.Types.ObjectId()
+        }
   },
   {
     timestamps: true,
