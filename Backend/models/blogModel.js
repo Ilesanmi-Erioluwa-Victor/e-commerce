@@ -25,15 +25,18 @@ const blogSchema = new mongoose.Schema(
     isLiked: {
       type: Boolean,
       default: false,
-        },
-    
-        isDisliked: {
-            type: Boolean,
-            default : false
-        },
-        likes: {
-            type : mongoose.Schema.Types.ObjectId()
-        }
+    },
+
+    isDisliked: {
+      type: Boolean,
+      default: false,
+    },
+    likes: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+      },
+    ],
   },
   {
     timestamps: true,
