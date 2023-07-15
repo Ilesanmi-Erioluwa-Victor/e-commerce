@@ -25,7 +25,12 @@ const blogSchema = new mongoose.Schema(
     isLiked: {
       type: Boolean,
       default: false,
-    },
+        },
+    
+        isDisliked: {
+            type: Boolean,
+            default : false
+    }
   },
   {
     timestamps: true,
