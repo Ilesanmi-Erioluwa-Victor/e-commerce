@@ -37,6 +37,13 @@ const blogSchema = new mongoose.Schema(
         ref: 'User',
       },
     ],
+
+    disLikes: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+      },
+    ],
   },
   {
     timestamps: true,
