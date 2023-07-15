@@ -2,7 +2,7 @@ const mongoose = require('mongoose'); // Erase if already required
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 // Declare the Schema of the Mongo model
-const userSchema = new mongoose.Schema(
+const blogSchema = new mongoose.Schema(
   {
     title: {
       required: true,
@@ -88,5 +88,5 @@ userSchema.methods.createPasswordResetToken = async function () {
   return resetToken;
 };
 //Export the model
-const User = mongoose.model('User', userSchema);
-module.exports = User;
+const Blog = mongoose.model('Blog', blogSchema);
+module.exports = Blog;
