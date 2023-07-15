@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const generateToken = require('../config/jsonToken');
 const ValidateMongoId = require('../utils/validateMongoId');
 const generateRefreshToken = require('../config/refreshToken');
+const crypto = require("crypto")
 const { sendMail } = require('./emailCtrl');
 
 // Create User
@@ -283,4 +284,5 @@ exports.forgotPasswordToken = asyncHandler(async (req, res) => {
 exports.resetPassword = asyncHandler(async (req, res) => {
   const { password } = req.body;
   const token = req?.params?.token;
+  const hashedToken = crypto.
 });
