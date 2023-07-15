@@ -18,9 +18,9 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    isBlocked: {
-      type: Boolean,
-      default: false,
+    numOfViews: {
+      type: Number,
+      default: 0,
     },
     passwordChangeAt: {
       type: Date,
