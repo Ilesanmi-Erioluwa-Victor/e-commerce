@@ -49,8 +49,18 @@ const blogSchema = new mongoose.Schema(
       default:
         'https://cdn.pixabay.com/photo/2016/04/01/10/04/amusing-1299756_960_720.png',
     },
+    author: {
+      type: String,
+      default: 'admin',
+    },
   },
   {
+    toJSON: {
+      virtuals: true,
+    },
+    toObject: {
+      virtuals: true,
+    },
     timestamps: true,
   }
 );
