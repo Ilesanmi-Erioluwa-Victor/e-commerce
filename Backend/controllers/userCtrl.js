@@ -294,5 +294,7 @@ exports.resetPassword = asyncHandler(async (req, res) => {
   if (!user) throw new Error('Token expired, try again');
 
   user.password = password;
+  user.passwordResetToken = "";
+  user.passwordResetExpires = undefined
   await user.save()
 });
