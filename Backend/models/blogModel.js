@@ -43,11 +43,12 @@ const blogSchema = new mongoose.Schema(
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
       },
-        ],
-        image: {
-            type: String,
-            default : ""
-    }
+    ],
+    image: {
+      type: String,
+      default:
+        'https://cdn.pixabay.com/photo/2016/04/01/10/04/amusing-1299756_960_720.png',
+    },
   },
   {
     timestamps: true,
