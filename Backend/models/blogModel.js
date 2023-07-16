@@ -65,16 +65,16 @@ const blogSchema = new mongoose.Schema(
   }
 );
 
-// encrypting of password...( Hashing...)
-userSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) {
-    next();
-  }
-  //   Hash Password
-  const salt = await bcrypt.genSaltSync(10);
-  this.password = await bcrypt.hash(this.password, salt);
-  next();
-});
+// // encrypting of password...( Hashing...)
+// userSchema.pre('save', async function (next) {
+//   if (!this.isModified('password')) {
+//     next();
+//   }
+//   //   Hash Password
+//   const salt = await bcrypt.genSaltSync(10);
+//   this.password = await bcrypt.hash(this.password, salt);
+//   next();
+// });
 
 //method for password checking..
 userSchema.methods.isPasswordMatched = async function (enteredPassword) {
