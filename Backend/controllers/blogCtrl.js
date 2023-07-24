@@ -3,3 +3,6 @@ const User = require("../models/userModel")
 const asyncHandler = require("express-async-handler");
 const ValidateMongoId = require("../utils/validateMongoId");
 
+export const createBlog = asyncHandler(async (req, res) => {
+    
+})
