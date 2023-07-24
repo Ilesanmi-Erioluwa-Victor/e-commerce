@@ -4,10 +4,14 @@ const asyncHandler = require('express-async-handler');
 const ValidateMongoId = require('../utils/validateMongoId');
 
 export const createBlog = asyncHandler(async (req, res) => {
+  try {
     const blog = await Blog.create(req.body);
-    
+
     res.json({
-        status: "success",
-        data : blog
-    })
+      status: 'success',
+      data: blog,
+    });
+  } catch (error) {
+    throw new Error(error);
+  }
 });
