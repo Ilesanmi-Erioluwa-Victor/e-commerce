@@ -4,5 +4,10 @@ const asyncHandler = require('express-async-handler');
 const ValidateMongoId = require('../utils/validateMongoId');
 
 export const createBlog = asyncHandler(async (req, res) => {
-  const blog = await Blog.create(req.body);
+    const blog = await Blog.create(req.body);
+    
+    res.json({
+        status: "success",
+        data : blog
+    })
 });
