@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 const authRoute = require("./routes/authRoute");
 const productRoute = require("./routes/productRoute");
+const blogRoute = require('./routes/blogRoute');
 const dbConnect = require("./config/dbConnect");
 const { errorHandler, notFound } = require("./middlewares/errorHandler");
 
@@ -22,6 +23,7 @@ app.use(cookieParser());
 // Routes
 app.use("/api/v1/users", authRoute);
 app.use("/api/v1/products", productRoute);
+app.use('/api/v1/blogs', blogRoute);
 
 // error middleware
 app.use(notFound);

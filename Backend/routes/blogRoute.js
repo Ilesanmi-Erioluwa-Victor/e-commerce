@@ -1,3 +1,5 @@
 const express = require('express');
 
-const blogRouter = express.Router();
+const blogRoute = express.Router();
+
+module.export = blogRoute;
