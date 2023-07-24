@@ -77,20 +77,20 @@ const blogSchema = new mongoose.Schema(
 // });
 
 //method for password checking..
-userSchema.methods.isPasswordMatched = async function (enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password);
-};
+// userSchema.methods.isPasswordMatched = async function (enteredPassword) {
+//   return await bcrypt.compare(enteredPassword, this.password);
+// };
 
-userSchema.methods.createPasswordResetToken = async function () {
-  const resetToken = crypto.randomBytes(32).toString('hex');
-  this.passwordResetToken = crypto
-    .createHash('sha256')
-    .update(resetToken)
-    .digest('hex');
-  this.passwordResetExpires = Date.now() + 30 * 60 * 1000; //Ten{10} minutes
-  console.log(this.passwordResetExpires);
-  return resetToken;
-};
+// userSchema.methods.createPasswordResetToken = async function () {
+//   const resetToken = crypto.randomBytes(32).toString('hex');
+//   this.passwordResetToken = crypto
+//     .createHash('sha256')
+//     .update(resetToken)
+//     .digest('hex');
+//   this.passwordResetExpires = Date.now() + 30 * 60 * 1000; //Ten{10} minutes
+//   console.log(this.passwordResetExpires);
+//   return resetToken;
+// };
 //Export the model
 const Blog = mongoose.model('Blog', blogSchema);
 module.exports = Blog;
