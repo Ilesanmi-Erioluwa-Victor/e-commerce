@@ -55,8 +55,12 @@ exports.getBlog = asyncHandler(async (req, res) => {
 
 exports.getBlogs = asyncHandler(async (req, res) => {
     try {
-        
+        const blogs = await Blog.find({})
+        res.json({
+            length: blog.length,
+            data : blogs
+        })
     } catch (error) {
-        
+         throw new Error(error);
     }
 })
