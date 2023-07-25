@@ -17,5 +17,9 @@ exports.createBlog = asyncHandler(async (req, res) => {
 });
 
 exports.updateBlog = asyncHandler(async (req, res) => {
-    
-})
+  try {
+    const { id } = req?.params;
+  } catch (error) {
+    throw new Error(error);
+  }
+});
