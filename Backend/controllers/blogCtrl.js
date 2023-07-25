@@ -21,7 +21,7 @@ exports.updateBlog = asyncHandler(async (req, res) => {
       const { id } = req?.params;
       ValidateMongoId(id)
       if (!id) {
-          throw new Error("No ID provide")
+          throw new Error("No ID provided")
       }
     const blog = await Blog.findByIdAndUpdate(id, req.body, {
       new: true,
@@ -35,7 +35,11 @@ exports.updateBlog = asyncHandler(async (req, res) => {
 
 exports.getBlog = asyncHandler(async (req, res) => {
   try {
-    const { id } = req?.params;
+      const { id } = req?.params;
+          ValidateMongoId(id);
+          if (!id) {
+            throw new Error('No ID provided');
+          }
     const blog = await Blog.findById(id);
 
     res.json(blog);
