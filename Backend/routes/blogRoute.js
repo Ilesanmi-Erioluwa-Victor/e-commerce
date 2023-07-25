@@ -7,5 +7,5 @@ blogRoute.post('/', authMiddleware, isAdmin, createBlog);
 blogRoute.put('/:id', authMiddleware, isAdmin, updateBlog);
 blogRoute.get('/:id', getBlog);
 blogRoute.get('/', authMiddleware, isAdmin, getBlogs);
-blogRoute.delete('/', authMiddleware, isAdmin, deleteBlog);
+blogRoute.delete('/:id', authMiddleware, isAdmin, deleteBlog);
 module.exports = blogRoute;
