@@ -15,3 +15,7 @@ exports.createBlog = asyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
+
+exports.updateBlog = asyncHandler(async (req, res) => {
+    
+})
