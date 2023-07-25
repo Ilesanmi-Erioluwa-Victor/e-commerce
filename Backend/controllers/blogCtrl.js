@@ -64,3 +64,21 @@ exports.getBlogs = asyncHandler(async (req, res) => {
          throw new Error(error);
     }
 })
+
+exports.deleteBlog = asyncHandler(async (req, res) => {
+  try {
+    const { id } = req?.params;
+    ValidateMongoId(id);
+    if (!id) {
+      throw new Error('No ID provided');
+    }
+    const blog = await Blog.findByIdAndDelete(id);
+
+      res.json({
+          message: "You have successfully deleted this blog",
+          status : "success"
+    });
+  } catch (error) {
+    throw new Error(error);
+  }
+});
