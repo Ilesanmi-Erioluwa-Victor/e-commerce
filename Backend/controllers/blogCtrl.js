@@ -52,3 +52,11 @@ exports.getBlog = asyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
+
+exports.getBlogs = asyncHandler(async (req, res) => {
+    try {
+        
+    } catch (error) {
+        
+    }
+})
