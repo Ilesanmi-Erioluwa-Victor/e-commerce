@@ -28,3 +28,14 @@ exports.updateBlog = asyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
+
+exports.getBlog = asyncHandler(async (req, res) => {
+  try {
+    const { id } = req?.params;
+    const blog = await Blog.findById(id);
+
+    res.json(blog);
+  } catch (error) {
+    throw new Error(error);
+  }
+});
