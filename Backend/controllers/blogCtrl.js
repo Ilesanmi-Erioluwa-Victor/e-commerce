@@ -19,6 +19,11 @@ exports.createBlog = asyncHandler(async (req, res) => {
 exports.updateBlog = asyncHandler(async (req, res) => {
   try {
     const { id } = req?.params;
+    const blog = await Blog.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+
+    res.json(blog);
   } catch (error) {
     throw new Error(error);
   }
