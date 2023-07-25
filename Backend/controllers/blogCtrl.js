@@ -41,6 +41,11 @@ exports.getBlog = asyncHandler(async (req, res) => {
       throw new Error('No ID provided');
     }
     const blog = await Blog.findById(id);
+    await Blog.findByIdAndUpdate(
+      id,
+      { $inc: { numOfViews: 1 } },
+      { new: true }
+    );
 
     res.json(blog);
   } catch (error) {
