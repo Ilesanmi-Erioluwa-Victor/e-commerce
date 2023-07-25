@@ -18,11 +18,11 @@ exports.createBlog = asyncHandler(async (req, res) => {
 
 exports.updateBlog = asyncHandler(async (req, res) => {
   try {
-      const { id } = req?.params;
-      ValidateMongoId(id)
-      if (!id) {
-          throw new Error("No ID provided")
-      }
+    const { id } = req?.params;
+    ValidateMongoId(id);
+    if (!id) {
+      throw new Error('No ID provided');
+    }
     const blog = await Blog.findByIdAndUpdate(id, req.body, {
       new: true,
     });
@@ -35,11 +35,11 @@ exports.updateBlog = asyncHandler(async (req, res) => {
 
 exports.getBlog = asyncHandler(async (req, res) => {
   try {
-      const { id } = req?.params;
-          ValidateMongoId(id);
-          if (!id) {
-            throw new Error('No ID provided');
-          }
+    const { id } = req?.params;
+    ValidateMongoId(id);
+    if (!id) {
+      throw new Error('No ID provided');
+    }
     const blog = await Blog.findById(id);
 
     res.json(blog);
