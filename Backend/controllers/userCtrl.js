@@ -2,9 +2,9 @@ const User = require('../models/userModel');
 const httpStatus = require('http-status');
 const asyncHandler = require('express-async-handler');
 const jwt = require('jsonwebtoken');
-const generateToken = require('../config/jsonToken');
+const generateToken = require('../configuration/jsonToken');
 const ValidateMongoId = require('../utils/validateMongoId');
-const generateRefreshToken = require('../config/refreshToken');
+const generateRefreshToken = require('../configuration/refreshToken');
 const crypto = require('crypto');
 const { sendMail } = require('./emailCtrl');
 
@@ -300,7 +300,6 @@ exports.resetPassword = asyncHandler(async (req, res) => {
     await user.save();
     res.json(user);
   } catch (error) {
-    throw new Error(error)
+    throw new Error(error);
   }
-  
 });
