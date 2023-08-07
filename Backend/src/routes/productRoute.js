@@ -1,12 +1,12 @@
-const express = require("express");
+const express = require('express');
 const {
   createProductCtrl,
   getProductCtrl,
   getAllProductsCtrl,
   updateProductCtrl,
   deleteProductCtrl,
-} = require("../controllers/productCtrl");
-const { isAdmin, authMiddleware } = require("../middlewares/authMiddlware");
+} = require('../../controllers/productCtrl');
+const { isAdmin, authMiddleware } = require('../../middlewares/authMiddlware');
 
 const router = express.Router();
 
