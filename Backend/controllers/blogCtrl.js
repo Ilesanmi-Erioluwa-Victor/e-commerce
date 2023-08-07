@@ -54,16 +54,16 @@ exports.getBlog = asyncHandler(async (req, res) => {
 });
 
 exports.getBlogs = asyncHandler(async (req, res) => {
-    try {
-        const blogs = await Blog.find({})
-        res.json({
-            length: blogs.length,
-            data : blogs
-        })
-    } catch (error) {
-         throw new Error(error);
-    }
-})
+  try {
+    const blogs = await Blog.find({});
+    res.json({
+      length: blogs.length,
+      data: blogs,
+    });
+  } catch (error) {
+    throw new Error(error);
+  }
+});
 
 exports.deleteBlog = asyncHandler(async (req, res) => {
   try {
@@ -74,11 +74,13 @@ exports.deleteBlog = asyncHandler(async (req, res) => {
     }
     const blog = await Blog.findByIdAndDelete(id);
 
-      res.json({
-          message: "You have successfully deleted this blog",
-          status : "success"
+    res.json({
+      message: 'You have successfully deleted this blog',
+      status: 'success',
     });
   } catch (error) {
     throw new Error(error);
   }
 });
+
+exports.likeBlog = asyncHandler(async (req, res) => {});
